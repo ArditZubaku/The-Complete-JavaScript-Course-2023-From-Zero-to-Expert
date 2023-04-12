@@ -454,6 +454,7 @@ if (teamDolphins_avg_bonus2 > teamKoalas_avg_bonus2 && teamDolphins_avg_bonus2 >
     console.log("No team qualifies for the winner.")
 }*/
 
+/*
 // const day = 'Monday';
 // const day = 'Thursday';
 // const day = 'thursday';
@@ -500,3 +501,13 @@ if (day === "Monday") {
 } else {
     console.log("Not a valid day")
 }
+*/
+
+const age = 23;
+age >= 18 ? console.log("Adult") : console.log("Minor");
+
+const adultOrNot = age >= 18 ? "Adult" : "Not";
+console.log(adultOrNot);
+
+console.log(`I am an ${age >= 18 ? "Adult" : "Minor"}`);
+
