@@ -186,7 +186,7 @@ console.log();
 console.log("Mark has a higher BMI?: " + markHigherBMI_2); */
 
 
-const firstName = 'Jonas';
+/* const firstName = 'Jonas';
 const job = 'teacher';
 const birthYear = 1991;
 const currentYear = 2023;
@@ -207,4 +207,32 @@ console.log("String with \n\
 
 console.log(`Multi line 
 with 
-literals`);
+literals`); */
+
+
+
+const age = 19;
+const isOldEnough = age >= 18;
+
+if (isOldEnough) {
+    console.log("Sarah can start driving license 🚗. ");
+}
+
+const age2 = 15;
+
+if (age2 >= 18) {
+    console.log("Sarah can start driving license 🚗.");
+} else {
+    const years = 18 - age2;
+    console.log(`Sarah is too young. She shall wait another ${years} years :).`);
+}
+
+const birthYear = 2002;
+let century;
+
+if (birthYear <= 2000) {
+    century = 20;
+} else {
+    century = 21;
+}
+console.log(century);
