@@ -343,7 +343,7 @@ if (height) {
     console.log("Height in UNDEFINED!");
 }*/
 
-// Equality operators: == vs ===
+/*// Equality operators: == vs ===
 const age = 18;
 // strict => no type coercion
 if (age === 18) console.log("Adult (strict)");
@@ -358,4 +358,28 @@ if (favorite === 8) {
     console.log("Strict!");
 } else if (favorite == 8) {
     console.log("Loose!")
+}*/
+
+const hasDriversLicense = true;
+const hasGoodVision = true;
+
+console.log(hasDriversLicense && hasGoodVision);
+console.log(hasDriversLicense || hasGoodVision);
+console.log(!hasDriversLicense);
+
+const shouldDrive = hasDriversLicense && hasGoodVision;
+if (shouldDrive) {
+    console.log("Sarah is able to drive!");
+} else {
+    console.log("Someone else should drive!");
+}
+
+const isTired = true;
+console.log(hasDriversLicense || hasGoodVision || isTired);
+console.log(hasDriversLicense || hasGoodVision && isTired);
+
+if (hasDriversLicense && hasGoodVision && !isTired) {
+    console.log("Sarah is able to drive.")
+} else {
+    console.log("Someone else should drive!");
 }
