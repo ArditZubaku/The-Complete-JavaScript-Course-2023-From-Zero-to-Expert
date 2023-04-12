@@ -385,6 +385,7 @@ if (hasDriversLicense && hasGoodVision && !isTired) {
 }*/
 
 /*
+/!*
 Coding Challenge #3
 There are two gymnastics teams, Dolphins and Koalas. They compete against each
 other 3 times. The winner with the highest average score wins a trophy!
@@ -405,7 +406,7 @@ Test data:
 § Data Bonus 1: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 123
 § Data Bonus 2: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 106
 GOOD LUCK
-*/
+*!/
 
 const teamDolphins_avg = (96 + 108 + 109) / 3;
 const teamKoalas_avg = (88 + 91 + 110) / 3;
@@ -418,10 +419,10 @@ if (teamDolphins_avg > teamKoalas_avg) {
     console.log("Team Koalas is the winner.");
 }
 console.log("--------------------------------");
-/*3. Bonus 1: Include a requirement for a minimum score of 100. With this rule, a
+/!*3. Bonus 1: Include a requirement for a minimum score of 100. With this rule, a
 team only wins if it has a higher score than the other team, and the same time a
 score of at least 100 points. Hint: Use a logical operator to test for minimum
-score, as well as multiple else-if blocks*/
+score, as well as multiple else-if blocks*!/
 
 const teamDolphins_avg_bonus1 = (97 + 112 + 101) / 3;
 const teamKoalas_avg_bonus1 = (109 + 95 + 123) / 3;
@@ -436,9 +437,9 @@ if (teamDolphins_avg_bonus1 > teamKoalas_avg_bonus1 && teamDolphins_avg_bonus1 >
     console.log("No team qualifies for the winner.")
 }
 console.log("--------------------------------");
-/*4. Bonus 2: Minimum score also applies to a draw! So a draw only happens when
+/!*4. Bonus 2: Minimum score also applies to a draw! So a draw only happens when
 both teams have the same score and both have a score greater or equal 100
-points. Otherwise, no team wins the trophy*/
+points. Otherwise, no team wins the trophy*!/
 
 const teamDolphins_avg_bonus2 = (97 + 112 + 101) / 3;
 const teamKoalas_avg_bonus2 = (109 + 95 + 106) / 3;
@@ -451,4 +452,51 @@ if (teamDolphins_avg_bonus2 > teamKoalas_avg_bonus2 && teamDolphins_avg_bonus2 >
     console.log("Draw!")
 } else {
     console.log("No team qualifies for the winner.")
+}*/
+
+// const day = 'Monday';
+// const day = 'Thursday';
+// const day = 'thursday';
+const day = "Sunday";
+
+switch (day) {
+    case "Monday": // checks if day === 'Monday'
+        console.log("Plan course structure");
+        console.log("Go to coding meetup");
+        break;
+    case "Tuesday":
+        console.log("Prepare theory videos");
+        break;
+    case "Wednesday":
+    case "Thursday":
+        console.log("Write code examples");
+        break;
+    case "Friday":
+        console.log("Record videos");
+        break;
+    case "Saturday":
+    case "Sunday":
+        console.log("Enjoy the weekend.");
+        break;
+    default:
+        console.log("Not a valid day");
+
+}
+
+console.log("------------------------------");
+
+// If-else version:
+if (day === "Monday") {
+    console.log("Plan course structure");
+    console.log("Go to coding meetup");
+} else if (day === "Tuesday") {
+    console.log("Prepare theory videos");
+} else if (day === "Wednesday" || day === "Thursday") {
+    console.log("Write code examples");
+} else if (day === "Friday") {
+    console.log("Record videos");
+} else if (day === "Saturday" || day === "Sunday") {
+    console.log("Enjoy the weekend")
+} else {
+    console.log("Not a valid day")
 }
