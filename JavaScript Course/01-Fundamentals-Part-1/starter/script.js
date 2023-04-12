@@ -250,7 +250,7 @@ Hint: Use an if/else statement 😉
 GOOD LUCK 😀
 */
 
-const marksWeight_1 = 78;
+/* const marksWeight_1 = 78;
 const marksHeight_1 = 1.69;
 const jonasWeight_1 = 92;
 const jonasHeight_1 = 1.95;
@@ -284,4 +284,31 @@ if (markHigherBMI_2) {
     console.log(`Mark's BMI (${marksBMI_1}) is higher than John's (${jonasBMI_1})!`);
 } else {
     console.log(`John's BMI (${jonasBMI_1}) is higher than Mark's (${marksBMI_1})!`);
-}
+} */
+
+
+// Type conversion 
+const inputYear = '1991';
+console.log(Number(inputYear));
+console.log(inputYear + 18);
+console.log(Number(inputYear + 0));
+console.log(Number(inputYear) + 10);
+
+console.log(Number('Jonas'));
+console.log(typeof NaN);
+
+console.log(String(23));
+console.log(String(23) + " 00");
+
+// Type coercion
+console.log('I am ' + 23 + ' years old');
+console.log('I am ' + '23' + ' years old');
+console.log('23' - '10' - 3); // '+' triggers String(), '-' triggers Numbers()
+console.log('23' * 2); // Numbers()
+
+let n = '1' + 1; // 11
+n = n - 1;       // 10
+console.log(n);
+
+console.log(2 + 3 + 5 + '5');
+console.log('10' - '3' - '2' + 5 + '1000');
