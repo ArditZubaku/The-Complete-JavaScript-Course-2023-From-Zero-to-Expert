@@ -142,7 +142,7 @@ John weights 85 kg and is 1.76 m tall.
 GOOD LUCK 
 */
 
-const marksWeight_1 = 78;
+/* const marksWeight_1 = 78;
 const marksHeight_1 = 1.69;
 const jonasWeight_1 = 92;
 const jonasHeight_1 = 1.95;
@@ -183,6 +183,28 @@ console.log("Weight: " + jonasWeight_2);
 console.log("Height: " + jonasHeight_2);
 console.log("BMI: " + jonasBMI_2);
 console.log();
-console.log("Mark has a higher BMI?: " + markHigherBMI_2);
+console.log("Mark has a higher BMI?: " + markHigherBMI_2); */
 
 
+const firstName = 'Jonas';
+const job = 'teacher';
+const birthYear = 1991;
+const currentYear = 2023;
+
+const jonas = "I'm " + firstName + ', a ' + (currentYear - birthYear) + " years old " + job + " .";
+
+console.log(jonas);
+
+
+// Template literals
+const jonas2 = `I'm ${firstName} a ${currentYear - birthYear} years old ${job} .`;
+
+const noInsertions = `Just a regular String.`
+
+console.log("String with \n\
+ new line \n\
+ 3rd line");
+
+console.log(`Multi line 
+with 
+literals`);
