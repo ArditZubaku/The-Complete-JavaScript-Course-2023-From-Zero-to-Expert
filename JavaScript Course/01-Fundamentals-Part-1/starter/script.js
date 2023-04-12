@@ -287,7 +287,7 @@ if (markHigherBMI_2) {
 } */
 
 
-// Type conversion 
+/* // Type conversion 
 const inputYear = '1991';
 console.log(Number(inputYear));
 console.log(inputYear + 18);
@@ -311,4 +311,38 @@ n = n - 1;       // 10
 console.log(n);
 
 console.log(2 + 3 + 5 + '5');
-console.log('10' - '3' - '2' + 5 + '1000');
+console.log('10' - '3' - '2' + 5 + '1000'); */
+
+// Falsy values = values that will become false when converted to a boolean
+// 5 falsy values: 0, '', undefined, null, NaN
+
+console.log(Boolean(0));
+console.log(Boolean(undefined));
+console.log(Boolean('Test'));
+console.log(Boolean({}));
+console.log(Boolean(''));
+
+const money = 0;
+if (money) {
+    console.log("Don't spend it all!");
+} else {
+    console.log("You should get a job!");
+}
+
+const money2 = 100;
+if (money2) {
+    console.log("Don't spend it all!");
+} else {
+    console.log("You should get a job!");
+}
+
+let height = "value";
+if (height) {
+    console.log("Height is defined!");
+} else {
+    console.log("Height in UNDEFINED!");
+}
+
+
+
+
