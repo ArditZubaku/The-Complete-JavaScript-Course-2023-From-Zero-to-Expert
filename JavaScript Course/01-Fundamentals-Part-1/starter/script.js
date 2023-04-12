@@ -313,7 +313,7 @@ console.log(n);
 console.log(2 + 3 + 5 + '5');
 console.log('10' - '3' - '2' + 5 + '1000'); */
 
-// Falsy values = values that will become false when converted to a boolean
+/*// Falsy values = values that will become false when converted to a boolean
 // 5 falsy values: 0, '', undefined, null, NaN
 
 console.log(Boolean(0));
@@ -341,8 +341,21 @@ if (height) {
     console.log("Height is defined!");
 } else {
     console.log("Height in UNDEFINED!");
+}*/
+
+// Equality operators: == vs ===
+const age = 18;
+// strict => no type coercion
+if (age === 18) console.log("Adult (strict)");
+// loose => type coercion
+if (age == '18') console.log("Adult (loose)");
+
+const favorite = prompt("What is your fav number?");
+console.log(favorite);
+console.log(typeof favorite);
+
+if (favorite === 8) {
+    console.log("Strict!");
+} else if (favorite == 8) {
+    console.log("Loose!")
 }
-
-
-
-
