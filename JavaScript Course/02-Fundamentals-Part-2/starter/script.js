@@ -68,6 +68,7 @@ console.log(calcAge1); */
 // Function declarations can be called above the line that they were defined
 // Function expressions can not be called above the line that they were defined */
 
+/* 
 ///////////////////////////////////////////////////
 // Arrow functions
 
@@ -98,4 +99,25 @@ const test = (parameter1, parameter2) => {
 
 console.log(yearsUntilRetirement(1991, "Jonas"));
 
-// A big problem/difference with arrow functions is that they dont get a 'this' keyword. 
+// A big problem/difference with arrow functions is that they dont get a 'this' keyword.  
+
+*/
+
+///////////////////////////////////////////////////
+// Functions calling other functions
+
+function cutFruitIntoPieces(fruit) {
+    return fruit * 4;
+}
+
+function fruitProcessor(apples, oranges) {
+
+    const applePieces = cutFruitIntoPieces(apples);
+    const orangePieces = cutFruitIntoPieces(oranges);
+    const juice = `Juice with ${applePieces} pieces of apple and ${orangePieces} pieces of orange`;
+    return juice;
+}
+
+console.log(fruitProcessor(4, 8));
+
+
