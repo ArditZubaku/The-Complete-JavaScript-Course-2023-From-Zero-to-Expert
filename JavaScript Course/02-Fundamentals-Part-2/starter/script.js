@@ -345,7 +345,7 @@ console.log(bills);
 console.log(tips);
 console.log(total);
 */
-
+/* 
 //////////////////////////////////////////////////////////////////////////////////////
 // Introduction to objects
 
@@ -374,4 +374,48 @@ const jonasObj = {
 }
 
 // Use arrays for structured data, use objects for unstructured data
+ */
+//////////////////////////////////////////////////////////////////////////////////////
+// Dot vs bracket notation
 
+const jonasObj = {
+    firstName: 'Jonas', // key = property
+    lastName: 'Schmedtmann',
+    age: 2023 - 1991,
+    job: 'Teacher',
+    friends: ['Michael', 'Peter', 'Steve']
+}
+
+console.log(jonasObj); // logs properties in a alphabetic order
+
+console.log(jonasObj.lastName);
+console.log(jonasObj['lastName']); // we can use expressions to compute this string
+
+const nameKey = 'Name';
+console.log(jonasObj['first' + nameKey]);
+console.log(jonasObj['last' + nameKey]);
+
+const interestedIn = prompt(`What do you want to know about Jonas ? 
+Choose between firstName, lastName, age, job and friends.`);
+
+console.log(jonasObj[interestedIn]);
+
+// We get undefined when trying to access a property that doesn't exist.
+
+if (jonasObj[interestedIn]) {
+    console.log(jonasObj[interestedIn]);
+} else {
+    console.log('Wrong input! \n\
+Choose between firstName, lastName, age, job and friends.');
+}
+
+// Add new properties to the object
+jonasObj.location = 'Portugal';
+jonasObj['twitter'] = '@jonasschmedtmann';
+console.log(jonasObj);
+
+// Challenge
+// Write dynamically: "Jonas has 3 friends, and his best friend is called Michael"
+console.log(`${jonasObj.firstName} has ${jonasObj.friends.length} friends, and his best friend is called ${jonasObj.friends[jonasObj.friends.indexOf('Michael')]}`);
+// OR
+console.log(`${jonasObj.firstName} has ${jonasObj.friends.length} friends, and his best friend is called ${jonasObj.friends.find(name => name === "Michael")}`);
