@@ -181,7 +181,7 @@ Hints:
 Apply this to the team's average scores 
 GOOD LUCK 
 */
-
+/* 
 const calcAverage = (score1, score2, score3) => (score1 + score2 + score3) / 3;
 
 let scoreDoplhins = calcAverage(44, 23, 71);
@@ -207,7 +207,57 @@ scoreKoalas = calcAverage(23, 34, 27);
 
 checkWinner(avgDolphins, avgKoalas);
 
+ */
+//////////////////////////////////////////////////////////////////////////////////////
+// Introduction to arrays
 
+const friend1 = "Michael";
+const friend2 = "Steve";
+const friend3 = "Peter";
+
+const friends = ['Michael', 'Steve', 'Peter'];
+console.log(friends);
+
+// Different way
+const years = new Array(1991, 1984, 'Test');
+console.log(years);
+
+console.log(friends[0]);
+console.log(friends.length);
+console.log(friends.length - 1); // the last index
+
+// Changing values
+friends[2] = 'Jay';
+console.log(friends);
+
+// Even tho we declared it as const we can change its value since an array is not a primitive value
+// We can only change elements one by one, we can not do a total re-assignment of the array
+
+// friends = ['This is not allowed'];
+
+
+// Different values at the same time
+const jonas = ['Jonas', 'Schmedtmann', 2023 - 1991, 'Teacher', friends];
+console.log(jonas);
+console.log(jonas.length);
+
+// Exercise
+const calcAge = function (birthYear) {
+    return 2023 - birthYear;
+}
+
+const yearsArray = [1990, 1967, 2002, 2021, 2018];
+
+const age1 = calcAge(yearsArray[0]);
+const age2 = calcAge(yearsArray[1]);
+const age3 = calcAge(yearsArray[2]);
+const age4 = calcAge(yearsArray[3]);
+// const age5 = calcAge(yearsArray.length - 1);
+
+const ages = [age1, age2, age3, age4, calcAge(yearsArray.length - 1)];
+
+console.log(ages);
+console.log(ages.toString());
 
 
 
