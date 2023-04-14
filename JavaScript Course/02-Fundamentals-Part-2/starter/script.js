@@ -335,7 +335,7 @@ values (so don't store the tip values in separate variables first, but right in 
 array) 
 GOOD LUCK 
 */
-
+/*
 const calcTip = (bill) => 50 <= bill && bill <= 300 ? 0.15 * bill : 0.2 * bill;
 
 const bills = [125, 555, 44];
@@ -344,3 +344,34 @@ const total = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]];
 console.log(bills);
 console.log(tips);
 console.log(total);
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////
+// Introduction to objects
+
+// In JavaScript objects are considered data structure.
+
+const jonasArray = [
+    'Jonas',
+    'Schmedtmann',
+    2023 - 1991,
+    'Teacher',
+    [
+        'Michael',
+        'Peter',
+        'Steve'
+    ]
+];
+
+// Objects = key:value pairs
+// Object literal syntax
+const jonasObj = {
+    firstName: 'Jonas', // key = property
+    lastName: 'Schmedtmann',
+    age: 2023 - 1991,
+    job: 'Teacher',
+    friends: ['Michael', 'Peter', 'Steve']
+}
+
+// Use arrays for structured data, use objects for unstructured data
+
