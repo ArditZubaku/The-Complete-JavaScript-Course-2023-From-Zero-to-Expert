@@ -493,7 +493,7 @@ Test data: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.9
 tall.
 GOOD LUCK 
 */
-
+/* 
 const markMiller = {
     fullName: 'Mark Miller',
     mass: 78,
@@ -518,3 +518,21 @@ if (markMiller.calcBMI() > johnSmith.calcBMI()) {
 } else {
     console.log(`${johnSmith.fullName}'s BMI (${johnSmith.BMI}) is higher than ${markMiller.fullName}'s (${markMiller.BMI})!`);
 }
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////
+// Iteration: the FOR loop
+
+console.log('Lifting weights repetion 1');
+console.log('Lifting weights repetion 2');
+console.log('Lifting weights repetion 3');
+console.log('Lifting weights repetion 4');
+console.log('Lifting weights repetion 5');
+
+console.log();
+
+// for loop keeps running while condition is true
+for (let i = 1; i <= 10; i++) {
+    console.log(`Lifting weights repetion ${i}`);
+}
+
