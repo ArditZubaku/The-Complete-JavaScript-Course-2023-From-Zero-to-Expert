@@ -536,7 +536,7 @@ for (let i = 1; i <= 10; i++) {
     console.log(`Lifting weights repetion ${i}`);
 }
 */
-
+/* 
 //////////////////////////////////////////////////////////////////////////////////////
 // Looping arrays, breaking and continuing
 
@@ -588,5 +588,31 @@ for (let i = 0; i < jonasArray.length; i++) {
     if (typeof jonasArray[i] === 'number') {
         console.log(jonasArray[i], "", typeof jonasArray[i]);
         break;
+    }
+}
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////
+// Looping backwards and loops in loops
+
+const jonasArray = [
+    'Jonas',
+    'Schmedtmann',
+    2023 - 1991,
+    'Teacher',
+    ['Michael', 'Peter', 'Steve'],
+    true
+]
+
+// Looping backwards
+for (let i = jonasArray.length - 1; i >= 0; i--) {
+    console.log(i, jonasArray[i]);
+}
+
+// Loop inside of a loop
+for (let exercise = 0; exercise < jonasArray.length; exercise++) {
+    console.log(`---Starting exercise [${exercise}]---`);
+    for (let rep = 0; rep < jonasArray.length; rep++) {
+        console.log(`   Lifting weight rep ${rep}`);
     }
 }
