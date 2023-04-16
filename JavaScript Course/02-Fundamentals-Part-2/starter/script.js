@@ -375,6 +375,8 @@ const jonasObj = {
 
 // Use arrays for structured data, use objects for unstructured data
  */
+
+/* 
 //////////////////////////////////////////////////////////////////////////////////////
 // Dot vs bracket notation
 
@@ -419,3 +421,53 @@ console.log(jonasObj);
 console.log(`${jonasObj.firstName} has ${jonasObj.friends.length} friends, and his best friend is called ${jonasObj.friends[jonasObj.friends.indexOf('Michael')]}`);
 // OR
 console.log(`${jonasObj.firstName} has ${jonasObj.friends.length} friends, and his best friend is called ${jonasObj.friends.find(name => name === "Michael")}`);
+ */
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+// Object methods
+
+// Functions are values meaning that they always return a value.
+// A function that is attached to an object is called a method. That's why methods get access to the "this" keyword.
+const jonasObj = {
+    firstName: 'Jonas', // key = property
+    lastName: 'Schmedtmann',
+    birthYear: 1991,
+    job: 'Teacher',
+    friends: ['Michael', 'Peter', 'Steve'],
+    hasDriversLicense: true,
+    // Do not use arrow functions inside objects since arrow functions don't have a "this" context.
+    // calcAge: function () { // we can use it since the function returns a value, and we store values into properties
+    //     console.log(this); // this = the object 
+    //     // return 2023 - jonasObj.birthYear;
+    //     return 2023 - this.birthYear;
+    // }
+
+    calcAge: function () {
+        // Adds a new property
+        this.age = 2023 - this.birthYear;
+        return this.age;
+    },
+
+    // Challenge 
+    // "Jonas is a 46-year old teacher, and he has a/no driver's license."
+    getSummary: function () {
+        return `${this.firstName} is a ${this.calcAge()}-year old ${this.job}, and he has ${this.hasDriversLicense ? 'a' : 'no'} driver's license.`;
+    }
+}
+
+// console.log(jonasObj.calcAge(jonasObj.birthYear));
+// console.log(jonasObj['calcAge'](jonasObj.birthYear));
+console.log(jonasObj.calcAge());
+console.log(jonasObj['calcAge']());
+// console.log(jonasObj.calcAge());
+// console.log(jonasObj.calcAge());
+// console.log(jonasObj.calcAge());
+console.log(jonasObj.age);
+console.log(jonasObj.age);
+console.log(jonasObj.age);
+console.log(jonasObj.age);
+
+// Challenge
+// "Jonas is a 46-year old teacher, and he has a/no driver's license."
+console.log(jonasObj.getSummary());
