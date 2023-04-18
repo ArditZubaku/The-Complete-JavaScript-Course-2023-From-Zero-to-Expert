@@ -1,11 +1,10 @@
 // Remember, we're gonna use strict mode in all scripts now!
 'use strict';
-
-const x = '23';
+/* const x = '23';
 if (x === 23) console.log(23);
 
-const calcAge = birthYear => 2023 - birthYear;
-
+const calcAge = birthYear => 2023 - birthYear; */
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Using Google, stackoverflow and MDN
 
@@ -89,4 +88,64 @@ const calcTempAmplitude2 = function name(t1, t2) {
 };
 
 const amplitude2 = calcTempAmplitude2([3, 7, 4, 6, 1, 2], [1, 2, 3, 4, 5]);
+console.log(`Amplitude: ${amplitude2}`);
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Debugging with the console and breakpoints
+
+const measureKelvin = function () {
+  const measurement = {
+    type: 'temperature',
+    unit: 'celsius',
+    // c) FIX
+    // value: Number(prompt('Degrees celsius:')),
+    value: 10,
+  };
+
+  // b) FIND
+  console.log(typeof measurement.value);
+  console.table(measurement);
+  // console.warn(measurement.value);
+  // console.error(measurement.value);
+
+  const kelvin = measurement.value + 273;
+
+  return kelvin;
+};
+
+// a) IDENTIFY
+console.log(measureKelvin());
+
+///////////////////////////////
+// Using a debugger
+
+const calcTempAmplitudeBug = function name(t1, t2) {
+  const temperatures = t1.concat(t2);
+  console.log(temperatures);
+  // let max = temperatures[0];
+  // let min = temperatures[0];
+  let max = 0;
+  let min = 0;
+  for (let i = 0; i < temperatures.length; i++) {
+    const currentTemp = temperatures[i];
+    if (typeof currentTemp !== 'number') {
+      continue;
+    }
+
+    debugger;
+    if (currentTemp > max) {
+      max = currentTemp;
+    }
+    if (currentTemp < min) {
+      min = currentTemp;
+    }
+  }
+  console.log(`Max: ${max}`);
+  console.log(`Min: ${min}`);
+
+  return max - min;
+};
+
+const amplitude2 = calcTempAmplitudeBug([3, 7, 4, 6, 1, 2], [1, 2, 3, 4, 5]);
 console.log(`Amplitude: ${amplitude2}`);
