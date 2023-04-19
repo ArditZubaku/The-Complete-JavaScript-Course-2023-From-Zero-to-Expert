@@ -27,18 +27,29 @@ let score = 20;
 document.querySelector('.number').textContent = secretNumber;
 
 document.querySelector('.check').addEventListener('click', function () {
-//////////////////////////////////////////////////////////////////////////////////////////
-// Implementing the game logic
+  //////////////////////////////////////////////////////////////////////////////////////////
+  // Implementing the game logic
   const guess = Number(document.querySelector('.guess').value);
   console.log(guess);
   console.log(typeof guess);
 
+  // When there is no input
   if (!guess) {
     document.querySelector('.message').textContent =
       'Insert a number please 😊';
-  } else if (guess === secretNumber) {
+  }
+  // When a player wins
+  else if (guess === secretNumber) {
     document.querySelector('.message').textContent = 'Correct number!';
-  } else if (guess > secretNumber) {
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // Manipulating CSS styles
+    
+    // We need to specify strings when manipulating with CSS styles
+    document.querySelector('body').style.backgroundColor = '#60b347';
+    document.querySelector('.number').style.width = '30rem';
+  }
+  // When guess is too high
+  else if (guess > secretNumber) {
     if (score > 0) {
       score--;
       document.querySelector('.message').textContent = 'Too high!';
@@ -48,7 +59,9 @@ document.querySelector('.check').addEventListener('click', function () {
         'You lost the game. Try again!';
       document.querySelector('.score').textContent = 0;
     }
-  } else if (guess < secretNumber) {
+  }
+  // When guess is too low
+  else if (guess < secretNumber) {
     if (score > 0) {
       score--;
       document.querySelector('.message').textContent = 'Too low!';
