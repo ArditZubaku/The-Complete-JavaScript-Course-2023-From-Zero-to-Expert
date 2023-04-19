@@ -1,1 +1,7 @@
 'use strict';
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// Project #1 - Guess my number!
+
+// Selecting an element
+console.log(document.querySelector('.message').textContent);
