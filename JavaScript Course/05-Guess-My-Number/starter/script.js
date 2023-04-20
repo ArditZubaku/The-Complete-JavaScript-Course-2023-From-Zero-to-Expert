@@ -6,12 +6,12 @@
 /* 
 //////////////////////////////////////////////////////////////////////////////////////////
 // Selecting an element - accessing it by html class name
-console.log(document.querySelector('.message').textContent);
-document.querySelector('.message').textContent = 'Correct number!';
-console.log(document.querySelector('.message').textContent);
+console.log(displayMessage);
+displayMessage = 'Correct number!';
+console.log(displayMessage);
 
-document.querySelector('.number').textContent = 13;
-document.querySelector('.score').textContent = 20 ;
+displaySecretNumber(13;
+displayScore(20) ;
 
 document.querySelector('.guess').value = 23;
 console.log(document.querySelector('.guess').value);
@@ -25,8 +25,17 @@ let secretNumber = Math.trunc(Math.random() * 20) + 1; // We add +1 to compensat
 let score = 20;
 let highscore = 0;
 
-document.querySelector('.number').textContent = '?';
+displaySecretNumber('?');
 document.querySelector('.guess').focus();
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// Refactoring the code: the DRY principle
+
+const displayMessage = (message) => (document.querySelector('.message').textContent = message);
+const displayScore = (score) => (document.querySelector('.message').textContent = score);
+const displaySecretNumber = (number) => (document.querySelector('.number').textContent = number);
+const changeBackground = (backgroundColor) => (document.querySelector('body').style.backgroundColor = backgroundColor);
+const changeWidth = (width) => (document.querySelector('.number').style.width = width);
 
 document.querySelector('.check').addEventListener('click', function () {
   //////////////////////////////////////////////////////////////////////////////////////////
@@ -37,19 +46,18 @@ document.querySelector('.check').addEventListener('click', function () {
 
   // When there is no input
   if (!guess) {
-    document.querySelector('.message').textContent =
-      'Insert a number please 😊';
+    displayMessage = 'Insert a number please 😊';
   }
   // When a player wins
   else if (guess === secretNumber) {
-    document.querySelector('.message').textContent = 'Correct number!';
+    displayMessage('Correct number!');
     //////////////////////////////////////////////////////////////////////////////////////////
     // Manipulating CSS styles
 
     // We need to specify strings when manipulating with CSS styles
-    document.querySelector('body').style.backgroundColor = '#60b347';
-    document.querySelector('.number').textContent = secretNumber;
-    document.querySelector('.number').style.width = '30rem';
+    changeBackground('#60b347');
+    displaySecretNumber(secretNumber);
+    changeWidth('30rem');
 
     //////////////////////////////////////////////////////////////////////////////////////////
     // Implementing highscores
@@ -59,28 +67,16 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.highscore').textContent = highscore;
     }
   }
-  // When guess is too high
-  else if (guess > secretNumber) {
+
+  // When guess is wrong
+  else if (guess !== secretNumber) {
     if (score > 1) {
       score--;
-      document.querySelector('.message').textContent = 'Too high!';
-      document.querySelector('.score').textContent = score;
+      displayMessage(guess > secretNumber ? 'Too high!' : 'Too low!');
+      displayScore(score);
     } else {
-      document.querySelector('.message').textContent =
-        'You lost the game. Try again!';
-      document.querySelector('.score').textContent = 0;
-    }
-  }
-  // When guess is too low
-  else if (guess < secretNumber) {
-    if (score > 1) {
-      score--;
-      document.querySelector('.message').textContent = 'Too low!';
-      document.querySelector('.score').textContent = score;
-    } else {
-      document.querySelector('.message').textContent =
-        'You lost the game. Try again!';
-      document.querySelector('.score').textContent = 0;
+      displayMessage('You lost the game. Try again!');
+      displayScore(0);
     }
   }
 });
@@ -103,11 +99,11 @@ GOOD LUCK
 document.querySelector('.again').addEventListener('click', function () {
   score = 20;
   secretNumber = Math.trunc(Math.random() * 20) + 1;
-  document.querySelector('body').style.backgroundColor = '#222';
-  document.querySelector('.number').style.width = '15rem';
-  document.querySelector('.number').style.textContent = '?';
-  document.querySelector('.message').textContent = 'Start guessing...';
+  changeBackground('#222');
+  changeWidth('15rem');
+  displaySecretNumber('?');
+  displayMessage('Start guessing...');
   document.querySelector('.guess').value = '';
-  document.querySelector('.score').textContent = score;
+  displayScore(score);
   document.querySelector('.guess').focus();
 });
