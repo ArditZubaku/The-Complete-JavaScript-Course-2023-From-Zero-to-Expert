@@ -24,12 +24,31 @@
   </head>
   <body>
     <h1>JavaScript is fun, but so is HTML & CSS</h1>
-    <p>
+    <p class="first">
       You can learn JavaScript without HTML & CSS, but for DOM manipulation it's
       useful to have some basic ideas of HTML & CSS.
     </p>
-    <p>Just another paragraph</p>
-
+    <p class="second">
+      Just another paragraph
+      <!-- We use attributes to describe elements -->
+      You can learn more about it on
+      <a href="https://www.udemy.com/user/jonasschmedtmann/">Udemy</a>.
+    </p>
     <h6>Another heading</h6>
+
+    <!-- Difference between classes and ids:
+    ids have to be unique -->
+    <!-- classes are used way more -->
+    <img
+      id="course-image"
+      src="https://img-c.udemycdn.com/user/200_H/7799204_2091_5.jpg"
+    />
+    <!-- the convention in CSS for naming classes and ids is separating them by dash -->
+    <form id="your-name">
+      <h2>Your name here</h2>
+      <p>Please fill in this form :)</p>
+      <input type="text" placeholder="Your name" />
+      <button>OK</button>
+    </form>
   </body>
 </html>
