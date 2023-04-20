@@ -1,14 +1,33 @@
+/* Global reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* Element selector */
 body {
   font-family: Arial;
   background-color: rgb(189, 255, 189);
   font-size: 30px;
+  padding: 5%;
 }
 
 h1 {
   font-size: 40px;
   color: rgb(255, 255, 255);
   text-align: center;
+  margin-bottom: 2%;
+}
+
+h2 {
+  margin-bottom: 3%;
+  text-align: center;
+}
+
+h6 {
+  margin-bottom: 2%;
 }
 
 /* Class selector */
@@ -18,7 +37,38 @@ h1 {
 }
 
 /* ID selector */
+/* margin => outside
+   padding => inside
+*/
 #your-name {
   background-color: burlywood;
   border: 5px solid #b2108c;
+  width: 30%;
+  padding: 2%;
+  margin-top: 3%;
+}
+
+p {
+  margin-bottom: 2%;
+}
+/* Applying css to multiple elements */
+input,
+button {
+  padding: 3%;
+  font-size: 20px;
+}
+
+a {
+  background-color: rebeccapurple;
+}
+
+/* Child selector */
+/* Select the h2 inside the form with the id=your-name */
+#your-name h2 {
+  color: crimson;
+}
+
+#course-image{
+width: 300px;
+/* height gets calculated auto and vice-versa */
 }
