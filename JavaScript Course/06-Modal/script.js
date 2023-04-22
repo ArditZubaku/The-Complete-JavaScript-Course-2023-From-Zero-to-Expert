@@ -28,9 +28,11 @@ overlay.addEventListener('click', closeModal);
 
 // Global event like keyboard events
 document.addEventListener('keydown', (event) => {
-  console.log('A key was pressed');
-  console.log(event); //KeyboardEvent object
+  // console.log('A key was pressed');
+  // console.log(event); //KeyboardEvent object
   if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
-    closeModal();
+    closeModal(); // here we have to call it manually
   }
 });
+
+
