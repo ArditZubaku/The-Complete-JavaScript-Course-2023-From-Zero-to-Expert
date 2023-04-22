@@ -20,8 +20,17 @@ const closeModal = () => {
 };
 for (let i = 0; i < showModalButton.length; i++) {
   // console.log(showModalButton[i].textContent);
-  showModalButton[i].addEventListener('click', openModal); // we only declare it, so the click calls it 
+  showModalButton[i].addEventListener('click', openModal); // we only declare it, so the click calls it
 }
 
 closeModalButton.addEventListener('click', closeModal); // method is not called using () bc then JS would execute the method whenever reached the line, and not based on the click invocation
 overlay.addEventListener('click', closeModal);
+
+// Global event like keyboard events
+document.addEventListener('keydown', (event) => {
+  console.log('A key was pressed');
+  console.log(event); //KeyboardEvent object
+  if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+    closeModal();
+  }
+});
