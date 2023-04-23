@@ -20,10 +20,9 @@ score1Element.textContent = 0;
 diceElement.classList.add('hidden');
 
 let currentScore = 0;
-const scores = [0, 0];
+let scores = [0, 0];
 let activePlayer = 0;
 let playing = true;
-
 const switchPlayer = () => {
   currentScore = 0;
   document.getElementById(`current--${activePlayer}`).textContent = 0;
@@ -84,3 +83,25 @@ buttonHold.addEventListener('click', () => {
     }
   }
 });
+
+const resetTheGame = () => {
+  currentScore = 0;
+  scores = [0, 0];
+  activePlayer = 0;
+  playing = true;
+
+  player0Element.classList.add('player--active');
+  player1Element.classList.remove('player--active');
+
+  score0Element.textContent = 0;
+  score1Element.textContent = 0;
+  diceElement.classList.add('hidden');
+  document.getElementById(`current--${activePlayer}`).textContent =
+    currentScore;
+  player0Element.classList.remove('player--winner');
+  player1Element.classList.remove('player--winner');
+  document.getElementById(`won--${activePlayer}`).classList.add('hidden');
+  document.getElementById(`won--${activePlayer + 1}`).classList.add('hidden');
+};
+
+buttonNew.addEventListener('click', resetTheGame);
