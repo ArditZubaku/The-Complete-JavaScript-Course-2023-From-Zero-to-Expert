@@ -169,3 +169,20 @@ main {
 .hidden {
   display: none;
 }
+
+.won {
+  margin-bottom: 15%;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Set the background color with some transparency */
+  backdrop-filter: blur(5px); /* Add a background blur effect */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Add a white box shadow */
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* Add a black text shadow */
+  color: #fff; /* Set the text color to white */
+  font-size: 18px;
+}
