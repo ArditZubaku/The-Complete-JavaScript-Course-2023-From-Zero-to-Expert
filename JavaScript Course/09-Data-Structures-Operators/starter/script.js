@@ -26,4 +26,64 @@ const restaurant = {
       close: 24,
     },
   },
+
+  orderFood: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
 };
+
+const array = [2, 3, 4];
+const a = array[0];
+const b = array[1];
+const c = array[2];
+
+// Destructuring with destructuring assignment
+const [x, y, z] = array;
+console.log(x);
+console.log(y);
+console.log(z);
+console.log(array); // Original array stays untouched
+
+const [first, second] = restaurant.categories;
+console.log(first, second);
+
+// Accessing first and n-th
+const [first1, , third] = restaurant.categories;
+console.log(first1, third);
+
+let [main, secondary] = restaurant.categories;
+console.log(main, secondary);
+
+// Switching values:
+// Old way:
+// const temp = main;
+// main = secondary;
+// secondary = temp;
+// console.log(main, secondary);
+
+// Destructuring way:
+[main, secondary] = [secondary, main];
+console.log(main, secondary);
+
+// Nested destructuring
+console.log(restaurant.orderFood(2, 0));
+// Receive 2 return values from a function
+const [firstValue, secondValue] = restaurant.orderFood(2, 1);
+console.log(firstValue, secondValue);
+
+// What if nested array ?
+const nested = [2, 3, [4, 6]];
+const [number2, , array1] = nested;
+console.log(number2, array1);
+// Destructuring inside desctructuring
+const [i, , [j, k]] = nested;
+console.log(i, j, k);
+
+// Default values
+const [p = 1, q = 1, r = 1] = [8, 9];
+console.log(p, q, r);
+
+// let test1;
+// let test2;
+// const test = ([test1, test2] = restaurant.categories);
+// console.log(test);
