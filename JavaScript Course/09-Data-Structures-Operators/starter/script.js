@@ -43,6 +43,12 @@ const restaurant = {
       `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}.`
     );
   },
+
+  orderPasta: function (ingredient1, ingredient2, ingredient3) {
+    console.log(
+      `Here is your delicios pasta with ${ingredient1}, ${ingredient2}, ${ingredient3}.`
+    );
+  },
 };
 /* 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,7 +105,7 @@ const [p = 1, q = 1, r = 1] = [8, 9];
 console.log(p, q, r);
 
 */
-
+/* 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Destructuring objects
 
@@ -152,4 +158,95 @@ delete obj3.address;
 restaurant.orderDelivery(obj2);
 console.log();
 restaurant.orderDelivery(obj3);
+*/
+
 ////////////////////////////////////////////////////////////////////////////////////////////
+// The spread operator {...}
+
+// The spread operator in JavaScript is denoted by ... and is a powerful feature
+// that allows an iterable such as an array, a string, or an object expression to be expanded
+// or "spread" into a set of individual elements.
+// Basically it unpacks all the array,etc elements at once
+// When used with an array, the spread operator "spreads out"
+// the elements of the array and returns them as separate values.
+
+const array = [7, 8, 9];
+const wrongWay = [1, 2, array[0], array[1], array[2]];
+console.log(array);
+console.log(wrongWay);
+
+// Using the spread operator
+const newArray = [1, 2, ...array];
+// const newArray2 = [1, 2, array]; // Matrix
+console.log(newArray);
+// console.log(newArray2);
+
+console.log(...newArray);
+
+const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+console.log(newMenu);
+
+// Spread operator does not create new values itself
+
+// Shallow copy of an array
+const mainMenuCopy = [...restaurant.mainMenu];
+
+// Merge 2 arrays
+const mergedArray = [...mainMenuCopy, ...restaurant.mainMenu];
+console.log(mergedArray);
+
+// Objects are not iterables
+// Iterables: Arrays, Strings, Maps, Sets.
+const test = 'Test';
+console.log(...test);
+const letters = [...test];
+console.log(letters);
+console.log(letters[2]);
+// console.log(`Test: ${...test}`); // Won't work
+
+const ingredients = [
+  //   prompt(`Let's make pasta!
+  // Ingredient 1? `),
+  //   prompt(`Ingredient 2?`),
+  //   prompt(`Ingredient 3?`),
+  'cheese',
+  'asparagus',
+  'eggs',
+];
+console.log(ingredients);
+
+restaurant.orderPasta(...ingredients);
+
+// Since ES2018 spread operator works even on Objects even tho they are not iterables
+
+// Objects
+const obj = { a: 1, b: 2, c: 3 };
+const obj2 = { ...obj, d: 4, e: 5 };
+console.log(obj);
+console.log(obj2);
+
+const newRestaurant = {
+  foundedIn: 1998,
+  ...restaurant,
+  founder: `Giuseppe`,
+};
+
+console.log(newRestaurant);
+console.log(`--------------------------------------------------------`);
+
+// Shallow object copy
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'Changed';
+restaurantCopy.categories[0] = 'Changed';
+console.log(restaurantCopy.name);
+console.log(restaurant.name);
+console.log(restaurantCopy.categories[0]);
+console.log(restaurant.categories[0]);
+
+// const restaurantCopy2 = Object.assign({}, restaurant);
+// console.log(restaurantCopy2);
+// console.log(restaurant);
+// restaurantCopy2.name = 'Changed';
+// restaurantCopy2.categories[0] = 'Changed';
+// console.log(restaurantCopy2);
+// console.log(restaurant);
