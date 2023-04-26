@@ -30,8 +30,23 @@ const restaurant = {
   orderFood: function (starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
-};
 
+  // Object destructuring as function argument
+  // Order doesn't matter!!!
+  orderDelivery: function ({
+    starterIndex = 1,
+    mainIndex = 0,
+    time = '10:30',
+    address = 'TestAddress',
+  }) {
+    console.log(
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}.`
+    );
+  },
+};
+/* 
+////////////////////////////////////////////////////////////////////////////////////////////
+// Destructuring arrays
 const array = [2, 3, 4];
 const a = array[0];
 const b = array[1];
@@ -83,7 +98,58 @@ console.log(i, j, k);
 const [p = 1, q = 1, r = 1] = [8, 9];
 console.log(p, q, r);
 
-// let test1;
-// let test2;
-// const test = ([test1, test2] = restaurant.categories);
-// console.log(test);
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Destructuring objects
+
+// For object destructuring we use {} bc this is how we create objs ???
+
+// Order doesnt matter when dealing with objects
+const { name, openingHours, categories } = restaurant;
+console.log(name, openingHours, categories);
+
+// Receiving the properties but renaming them:
+const {
+  name: restaurantName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+console.log(`Renamed variables: `, restaurantName, hours, tags);
+
+// Default values
+const { menu = [], starterMenu: starters = [] } = restaurant;
+console.log(menu, starters);
+
+// Mutating variables while destructuring objects
+let a = 111;
+let b = 999;
+const obj = { a: 23, b: 7, c: 50 };
+// {a, b } = obj;
+// FIX*** - When JS sees {} it alludes to a code block, and we can't assign anything to a code block
+({ a, b } = obj);
+console.log(a, b);
+
+// Nested objects
+const {
+  fri: { open: o, close: c }, // Variables = red
+} = openingHours;
+// console.log(fri);
+console.log(o, c);
+
+const obj2 = {
+  time: '22:30',
+  address: 'Via Angelo Tavanti 23, Firenze, Italy',
+  mainIndex: 2,
+  starterIndex: 2,
+};
+
+const obj3 = Object.assign({}, obj2);
+delete obj3.time;
+delete obj3.address;
+// console.log(obj3);
+
+restaurant.orderDelivery(obj2);
+console.log();
+restaurant.orderDelivery(obj3);
+////////////////////////////////////////////////////////////////////////////////////////////
