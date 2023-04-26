@@ -104,7 +104,7 @@ const z = 3;
 console.log(x === window.x);
 console.log(y === window.y);
 */
-
+/* 
 //////////////////////////////////////////////////////////////////////////////////
 // The THIS keyword
 
@@ -146,3 +146,64 @@ matilda.calcAge();
 
 const f = jonas.calcAge;
 f();
+*/
+
+//////////////////////////////////////////////////////////////////////////////////
+// Regular functions vs Arrow functions
+
+// var firstName = `Matilda`;
+
+const jonas = {
+  firstName: 'Jonas',
+  year: 1991,
+  calcAge: function () {
+    // console.log(this); // Obj itself === the owner of the method
+    console.log(2023 - this.year);
+
+    // Solution 1***
+    // const self = this;
+    // const isMillenial = function () {
+    //   // console.log(this); // Since this is a regular function call it gets no this keyword
+    //   // even tho it is inside an object
+    //   console.log(self);
+    //   console.log(self.year >= 1981 && self.year <= 1996);
+    // };
+
+    // Solution 2***
+    // Since arrow functions dont get their this keyword but inherit it from the parent
+    // in this case inheriting from the parent will mean inheriting from the obj itself
+    const isMillenial = () => {
+      console.log(this);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+
+    isMillenial();
+  },
+  greet: () => {
+    // console.log(this);
+    console.log(`Hi ${this.firstName}`);
+  },
+  // greet: function () {
+  //   console.log(this);
+  //   console.log(`Hi ${this.firstName}`);
+  // },
+};
+
+jonas.greet();
+jonas.calcAge();
+
+// Arguments keyword : only available in regular functions 
+
+const addFuncExpression = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+addFuncExpression(2, 5);
+addFuncExpression(2, 5, 8, 9, 10);
+
+var addArrowExpression = (a, b) => {
+  console.log(arguments);
+  return a + b;
+};
+
+addArrowExpression(2, 3, 4, 5, 5, 6, 6, 7);
