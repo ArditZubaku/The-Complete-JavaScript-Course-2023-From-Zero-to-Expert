@@ -1,7 +1,7 @@
 'use strict';
 
 // JIT - just-in-time compilation
-
+/* 
 /////////////////////////////////////////////////////////////////////////
 // Scoping in practice
 
@@ -47,5 +47,61 @@ const firstName = 'Jonas';
 calcAge(1991);
 // console.log(age);
 // printAge();
+*/
 
-/////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+// Variable environment: Hoisting and the TDZ.
+
+// Hoisting: Makes some types of variables accesible/usable in the code
+// before they are actually declared.
+
+// Function declarations => Hoisted, Initial value = Actual function
+// Var variables => Hoisted, Initial value = undefined
+// Let and const variables => Not hoisted
+// Function expressions and arrow expressions => If declared with var => Hoisted
+
+// Using variables before declaration:
+console.log(me);
+// console.log(job);
+// console.log(year);
+
+var me = 'Jonas';
+let job = 'Teacher';
+const year = 1991;
+
+// Using functions before they are defined:
+console.log(addFuncDeclaration(1, 2));
+// console.log(addFuncExpression(1, 2));
+// console.log(addArrowExpression(1, 2));
+
+// Functions:
+function addFuncDeclaration(a, b) {
+  return a + b;
+}
+
+const addFuncExpression = function (a, b) {
+  return a + b;
+};
+
+var addArrowExpression = (a, b) => a + b;
+
+// Example
+console.log(numProducts);
+if (!numProducts) {
+  deleteShoppingCart();
+}
+
+var numProducts = 10;
+
+function deleteShoppingCart() {
+  console.log('All products deleted!');
+}
+
+var x = 1;
+let y = 2;
+const z = 3;
+
+console.log(x === window.x);
+console.log(y === window.y);
+
+//////////////////////////////////////////////////////////////////////////////////
