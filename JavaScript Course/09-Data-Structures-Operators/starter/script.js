@@ -49,6 +49,14 @@ const restaurant = {
       `Here is your delicios pasta with ${ingredient1}, ${ingredient2}, ${ingredient3}.`
     );
   },
+
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(
+      `Here is your delicios pizza with ${mainIngredient} and ${
+        otherIngredients.length ? otherIngredients : 'nothing else'
+      }.`
+    );
+  },
 };
 /* 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -159,7 +167,7 @@ restaurant.orderDelivery(obj2);
 console.log();
 restaurant.orderDelivery(obj3);
 */
-
+/* 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // The spread operator {...}
 
@@ -250,3 +258,73 @@ console.log(restaurant.categories[0]);
 // restaurantCopy2.categories[0] = 'Changed';
 // console.log(restaurantCopy2);
 // console.log(restaurant);
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Rest pattern and rest parameters.
+
+// The rest pattern looks exactly like the spread operator {...} but actually does the opposite.
+
+// 1) Destructuring with REST pattern
+
+// SPREAD, because on the RIGHT side of = operator
+const array = [1, 2, ...[3, 4, 5]];
+// const test = [1, , ]
+// console.log(test);
+
+// REST = the rest of the elements, because on the LEFT side of = operator
+// This one will pack all the left elements into 'c' array
+// const [a, b, ...c, ...test] = [1, 2, 3, 4, 5];
+//A rest element must be last in a destructuring pattern
+const [a, b, ...c] = [1, 2, 3, 4, 5];
+console.log(a);
+console.log(b);
+console.log(c);
+
+const [pizza, , risotto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+
+console.log(pizza);
+console.log(risotto);
+console.log(otherFood);
+
+// Objects
+const { sat: weekend, ...weekDays } = restaurant.openingHours;
+console.log(weekend);
+console.log(weekDays);
+
+// 2) Functions
+// REST parameters - no matter how many we pass, REST will pack them into a single array
+
+// GATHER/COLLECT
+const add = function (...args) {
+  // console.log(args);
+  let sum = 0;
+  for (let i = 0; i < args.length; i++) {
+    sum += args[i];
+  }
+  console.log(sum);
+};
+
+add(2, 3);
+add(2, 3, 4, 5);
+add(2, 3, 4, 5, 6, 7, 8, 9);
+
+const spread = [23, 5, 7];
+// SPREAD
+add(...spread);
+
+restaurant.orderPizza('mushrooms', 'onions', `olives`, `spinach`);
+restaurant.orderPizza('oneArgument');
+
+// if([]){
+//   console.log('Test');
+// }
+
+// USE SPREAD OPERATOR where you would otherwise write values separated by a comma
+// USE REST PATTERB where you would otherwise write variable names separated by a comma
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
