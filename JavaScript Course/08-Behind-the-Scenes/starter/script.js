@@ -147,7 +147,7 @@ matilda.calcAge();
 const f = jonas.calcAge;
 f();
 */
-
+/* 
 //////////////////////////////////////////////////////////////////////////////////
 // Regular functions vs Arrow functions
 
@@ -207,3 +207,54 @@ var addArrowExpression = (a, b) => {
 };
 
 addArrowExpression(2, 3, 4, 5, 5, 6, 6, 7);
+
+*/
+
+//////////////////////////////////////////////////////////////////////////////////
+// Primitives vs Reference types (Objects)
+
+// let age = 30;
+// let oldAge = age;
+// age = 31;
+
+// console.log(age);
+// console.log(oldAge);
+
+// const me = {
+//   firstName: 'Jonas',
+//   age: 30,
+// };
+
+// const friend = me;
+// friend.age = 27;
+
+// console.log('Friend: ', friend);
+// console.log('Me: ', me);
+
+let lastName = 'Williams';
+let oldLastName = lastName;
+lastName = `Davis`;
+
+console.log(lastName);
+console.log(oldLastName);
+
+const jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Alice', 'Bob'], // An array is just an object in JS
+};
+
+// const or let changes have effect only in the stack, not the heap
+const marriedJessica = jessica;
+marriedJessica.lastName = 'Davis';
+
+// Copying the object => creating a new one
+const jessicaCopy = Object.assign({}, jessica); // This method works only on the first level = shallow copy!=deep clone
+jessicaCopy.lastName = 'Griffin';
+jessicaCopy.family.push('Mary', 'John'); // Second level, doesnt get copied!
+
+console.log(`Before marriage: `, jessica);
+// console.log(`After marriage:`, marriedJessica);
+console.log(`After marriage:`, jessicaCopy);
+
