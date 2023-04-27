@@ -374,6 +374,7 @@ restaurant.orderPizza && restaurant.orderPizza(`mushrooms`, `spinach`);
 
 */
 
+/* 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // The nullish coalescing operator (??).
 
@@ -386,3 +387,41 @@ console.log(guests1);
 // NULLISH values: null and undefined (doesn't include 0 or empty string)
 const guestsCorrect = restaurant.numGuests ?? 10;
 console.log(guestsCorrect);
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Logical assignment operators.
+
+const restaurant1 = {
+  name: `Capri`,
+  // numGuests: 20,
+  numGuests: 0,
+  // here owner is undefined
+};
+
+const restaurant2 = {
+  name: `La Piazza`,
+  owner: `Giovanni Rossi`,
+  // here numGuests is undefined
+};
+
+// Adding the numGuests property to the objects that do not have it
+// restaurant1.numGuests = restaurant1.numGuests || 10;
+// restaurant2.numGuests = restaurant2.numGuests || 10;
+
+// Via OR assignment operator - assigns a value to a variable if that variable is currently falsy
+// restaurant1.numGuests ||= 10;
+// restaurant2.numGuests ||= 10;
+
+// FIX*** Via The Logical Nullish Assignment operator
+restaurant1.numGuests ??= 10;
+restaurant2.numGuests ??= 10;
+
+// AND assignment operator
+// restaurant2.owner = restaurant2.owner && `<ANONYMOUS>`;
+// restaurant1.owner = restaurant1.owner && `<ANONYMOUS>`;
+restaurant1.owner &&= `<ANONYMOUS>`; // assigns a value to the variable only if it currently truthy
+restaurant2.owner &&= `<ANONYMOUS>`;
+
+console.log(restaurant1);
+console.log(restaurant2);
