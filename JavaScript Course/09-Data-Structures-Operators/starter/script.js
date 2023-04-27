@@ -259,7 +259,7 @@ console.log(restaurant.categories[0]);
 // console.log(restaurantCopy2);
 // console.log(restaurant);
 */
-
+/* 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Rest pattern and rest parameters.
 
@@ -325,6 +325,48 @@ restaurant.orderPizza('oneArgument');
 
 // USE SPREAD OPERATOR where you would otherwise write values separated by a comma
 // USE REST PATTERB where you would otherwise write variable names separated by a comma
-
+*/
 
 ////////////////////////////////////////////////////////////////////////////////////////////
+// Short circuiting (&& and ||)
+
+// Logical operators: Can use ANY data type, return ANY data type, do short-circuiting
+
+console.log(`-------------------OR-------------------`);
+console.log(3 || 'Jonas'); // If the first value is a TRUTHY value, return that.
+console.log('' || 'Jonas');
+console.log(true || 0);
+console.log(undefined || null);
+// It will log the first TRUTHY value it finds (short-circuiting) if that exists. Otherwise...
+console.log(undefined || 0 || '' || 'Hello' || 23 || null);
+console.log(undefined || 0 || '' || 23 || 'Hello' || null);
+console.log(0 || undefined || null); // The last FALSY value
+
+restaurant.numGuests = 30;
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1);
+
+// Short-circuiting way:
+restaurant.numGuests2 = 50;
+const guests2 = restaurant.numGuests2 || 10;
+console.log(guests2);
+
+console.log(`-------------------AND-------------------`);
+// Works exactly the opposite way of short-circuiting with OR
+// For the AND evaluation to be true, all the operands have to be true,
+// so when it finds a false value it short-circuits without evaluating the other values
+// since it knows that the expression will be false in the end.
+console.log(0 && 'Jonas'); // Short-circuits when the first value is FALSY.
+console.log('Jonas' && 10);
+console.log(true && 0);
+console.log(undefined && null);
+console.log(`Hello` && 23 && null && undefined && `Jonas`);
+console.log(true && `True` && 10); // The last TRUTHY value
+
+// Example
+// Checking if it exists
+if (restaurant.orderPizza) {
+  restaurant.orderPizza(`mushrooms`, `spinach`);
+}
+
+restaurant.orderPizza && restaurant.orderPizza(`mushrooms`, `spinach`);
