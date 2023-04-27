@@ -327,6 +327,7 @@ restaurant.orderPizza('oneArgument');
 // USE REST PATTERB where you would otherwise write variable names separated by a comma
 */
 
+/* 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Short circuiting (&& and ||)
 
@@ -370,3 +371,18 @@ if (restaurant.orderPizza) {
 }
 
 restaurant.orderPizza && restaurant.orderPizza(`mushrooms`, `spinach`);
+
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// The nullish coalescing operator (??).
+
+restaurant.numGuests = 0;
+const guests1 = restaurant.numGuests || 10; // It will assign 10 even tho 0 is the number we want
+console.log(guests1);
+
+// Solution with "??"
+// Works almostthe same as || operator, but instead of FALSY values it evaluates NULLISH values
+// NULLISH values: null and undefined (doesn't include 0 or empty string)
+const guestsCorrect = restaurant.numGuests ?? 10;
+console.log(guestsCorrect);
