@@ -449,91 +449,111 @@ TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Th
 GOOD LUCK
 */
 
-const game = {
-  team1: 'Bayern Munich',
-  team2: 'Borussia Dortmund',
-  players: [
-    [
-      'Neuer',
-      'Pavard',
-      'Martinez',
-      'Alaba',
-      'Davies',
-      'Kimmich',
-      'Goretzka',
-      'Coman',
-      'Muller',
-      'Gnabry',
-      'Lewandowski',
-    ],
-    [
-      'Burki',
-      'Schulz',
-      'Hummels',
-      'Akanji',
-      'Hakimi',
-      'Weigl',
-      'Witsel',
-      'Hazard',
-      'Brandt',
-      'Sancho',
-      'Gotze',
-    ],
-  ],
-  score: '4:0',
-  scored: ['Lewandowski', 'Gnabry', 'Lewandowski', 'Hummels'],
-  date: 'Nov 9th, 2037',
-  odds: {
-    team1: 1.33,
-    x: 3.25,
-    team2: 6.5,
-  },
-};
+// const game = {
+//   team1: 'Bayern Munich',
+//   team2: 'Borussia Dortmund',
+//   players: [
+//     [
+//       'Neuer',
+//       'Pavard',
+//       'Martinez',
+//       'Alaba',
+//       'Davies',
+//       'Kimmich',
+//       'Goretzka',
+//       'Coman',
+//       'Muller',
+//       'Gnabry',
+//       'Lewandowski',
+//     ],
+//     [
+//       'Burki',
+//       'Schulz',
+//       'Hummels',
+//       'Akanji',
+//       'Hakimi',
+//       'Weigl',
+//       'Witsel',
+//       'Hazard',
+//       'Brandt',
+//       'Sancho',
+//       'Gotze',
+//     ],
+//   ],
+//   score: '4:0',
+//   scored: ['Lewandowski', 'Gnabry', 'Lewandowski', 'Hummels'],
+//   date: 'Nov 9th, 2037',
+//   odds: {
+//     team1: 1.33,
+//     x: 3.25,
+//     team2: 6.5,
+//   },
+// };
 
-// 1.
-console.log('---1---');
-// const player1 = [...game.players[0]];
-// const player2 = [...game.players[1]];
-const [players1, players2] = game.players;
-console.log(players1);
-console.log(players2);
+// // 1.
+// console.log('---1---');
+// // const player1 = [...game.players[0]];
+// // const player2 = [...game.players[1]];
+// const [players1, players2] = game.players;
+// console.log(players1);
+// console.log(players2);
 
-// 2.
-console.log('---2---');
-const [gk, ...fieldPlayers] = players1;
-console.log(gk);
-console.log(fieldPlayers);
+// // 2.
+// console.log('---2---');
+// const [gk, ...fieldPlayers] = players1;
+// console.log(gk);
+// console.log(fieldPlayers);
 
-// 3.
-console.log('---3---');
-const allPlayers = [...players1, ...players2];
-console.log(allPlayers);
+// // 3.
+// console.log('---3---');
+// const allPlayers = [...players1, ...players2];
+// console.log(allPlayers);
 
-// 4.
-console.log('---4---');
-const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
-console.log(players1Final);
+// // 4.
+// console.log('---4---');
+// const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+// console.log(players1Final);
 
-// 5.
-console.log('---5---');
-const {
-  odds: { team1, x: draw, team2 },
-} = game;
-console.log(team1);
-console.log(draw);
-console.log(team2);
+// // 5.
+// console.log('---5---');
+// const {
+//   odds: { team1, x: draw, team2 },
+// } = game;
+// console.log(team1);
+// console.log(draw);
+// console.log(team2);
 
-// 6.
-console.log('---6---');
-const printGoals = (...playerNames) => {
-  console.log(...playerNames, `scored ${playerNames.length} goals.`);
-};
-printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
-printGoals('Davies', 'Muller');
-printGoals(...game.scored);
+// // 6.
+// console.log('---6---');
+// const printGoals = (...playerNames) => {
+//   console.log(...playerNames, `scored ${playerNames.length} goals.`);
+// };
+// printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
+// printGoals('Davies', 'Muller');
+// printGoals(...game.scored);
 
-// 7.
-console.log('---7---');
-team1 < team2 && console.log('Team 1 is more likely to win');
-team2 < team1 && console.log('Team 2 is more likely to win');
-// team2 < team1 || console.log('Team 1 is more likely to win');
+// // 7.
+// console.log('---7---');
+// team1 < team2 && console.log('Team 1 is more likely to win');
+// team2 < team1 && console.log('Team 2 is more likely to win');
+// // team2 < team1 || console.log('Team 1 is more likely to win');
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Coding Challenge #11.
+
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+for (const item of menu) console.log(item);
+
+console.log();
+
+// for (const item of menu.entries()) {
+//   console.log(`${item[0] + 1}: ${item[1]}`);
+// }
+
+for (const [position, element] of menu.entries())
+  console.log(`${position}: ${element}`);
+
+console.log();
+
+console.log([...menu.entries()]);
