@@ -4,6 +4,25 @@
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
+const weekDays = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
+
+const openingHours = {
+  // Computing property names
+  [weekDays[0]]: {
+    open: 12,
+    close: 22,
+  },
+  [weekDays[4]]: {
+    open: 11,
+    close: 23,
+  },
+  [weekDays[weekDays.length - 1]]: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+  [`Test${1 + 1}`]: {},
+};
+
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -12,28 +31,39 @@ const restaurant = {
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
+  // openingHours: {
+  //   thu: {
+  //     open: 12,
+  //     close: 22,
+  //   },
+  //   fri: {
+  //     open: 11,
+  //     close: 23,
+  //   },
+  //   sat: {
+  //     open: 0, // Open 24 hours
+  //     close: 24,
+  //   },
+  // },
 
-  orderFood: function (starterIndex, mainIndex) {
+  // Before ES6:
+  // openingHours: openingHours,
+
+  // ES6 enhanced object literals
+  openingHours,
+
+  // Before ES6:
+  // orderFood: function (starterIndex, mainIndex) {
+  //   return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  // },
+  // ES6 enhanced object literals (writing methods)
+  orderFood(starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
 
   // Object destructuring as function argument
   // Order doesn't matter!!!
-  orderDelivery: function ({
+  orderDelivery({
     starterIndex = 1,
     mainIndex = 0,
     time = '10:30',
@@ -44,13 +74,13 @@ const restaurant = {
     );
   },
 
-  orderPasta: function (ingredient1, ingredient2, ingredient3) {
+  orderPasta(ingredient1, ingredient2, ingredient3) {
     console.log(
       `Here is your delicios pasta with ${ingredient1}, ${ingredient2}, ${ingredient3}.`
     );
   },
 
-  orderPizza: function (mainIngredient, ...otherIngredients) {
+  orderPizza(mainIngredient, ...otherIngredients) {
     console.log(
       `Here is your delicios pizza with ${mainIngredient} and ${
         otherIngredients.length ? otherIngredients : 'nothing else'
@@ -538,8 +568,9 @@ GOOD LUCK
 // team2 < team1 && console.log('Team 2 is more likely to win');
 // // team2 < team1 || console.log('Team 1 is more likely to win');
 
+/* 
 ////////////////////////////////////////////////////////////////////////////////////////////
-// Coding Challenge #11.
+// The FOR-OF loop
 
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 
@@ -557,3 +588,8 @@ for (const [position, element] of menu.entries())
 console.log();
 
 console.log([...menu.entries()]);
+
+ */
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Enhanced object literals
