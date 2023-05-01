@@ -823,7 +823,7 @@ and sets its value to 1 to represent that the player has scored their first goal
 /* 
 One of the main features of a Set is that it only contains unique values. If you try to add a value that already exists in the Set, it will not be added again. This makes Sets useful for tasks like removing duplicates from an array or tracking unique values in a dataset. 
 */
-
+/* 
 // Set can hold mixed data types.
 // Accepts iterables
 
@@ -874,3 +874,58 @@ console.log(numberOfPositions);
 
 console.log(`Different letters in a string: ${new Set('Mississippi').size}`);
 
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Maps: Fundamentals.
+
+// A map is a data structure used to map values to keys. The difference between obj and maps
+// is that in maps keys can have any type in difference from objs where keys are always strings.
+
+const restaurantMap = new Map(); // first create empty map
+restaurantMap.set('key', 'value');
+restaurantMap.set('name', 'Classico Italiano');
+restaurantMap.set(1, 'Firenze, Italy');
+console.log(restaurantMap.set(2, 'Milano, Italy')); // sets and returns the map also
+
+// Since it returns the updated map itself we can chain it
+
+restaurantMap
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, `We are open :D`)
+  .set(false, `We are closed :(`);
+console.log(restaurantMap);
+
+// Reading data from the map
+console.log(restaurantMap.get('categories'));
+console.log(restaurantMap.get(true));
+console.log(restaurantMap.get('true'));
+
+const time = 21;
+console.log(
+  restaurantMap.get(
+    time > restaurantMap.get('open') && time < restaurantMap.get('close')
+  )
+);
+
+console.log(restaurantMap.has('categories'));
+restaurantMap.delete('categories');
+console.log(restaurantMap);
+console.log(restaurantMap.size);
+// restaurantMap.clear();
+console.log(restaurantMap);
+
+restaurantMap.set([1, 2, 3], 'Test');
+console.log(restaurantMap);
+// This won't work since the two arrays dont represent the same thing in memory
+console.log(restaurantMap.get([1, 2, 3]));
+
+// Fix:
+const array = [1, 2];
+restaurantMap.set(array, 'Test2');
+console.log(restaurantMap.get(array));
+
+// Storing different data types
+restaurantMap.set(document.querySelector('h1'), 'Heading');
