@@ -637,7 +637,7 @@ const array = [{ name: `Jonas`, email: `test@gmail.com` }];
 console.log(array[0]?.name ?? `Array is empty`);
 
  */
-
+/* 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Looping objects: object keys, values and entries.
 
@@ -668,3 +668,151 @@ console.log(entries);
 for (const [key, { open, close }] of entries) {
   console.log(`On ${key} we open at ${open} and close at ${close}.`);
 }
+
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Coding Challenge #12.
+
+/* 
+Coding Challenge #2
+Let's continue with our football betting app! Keep using the 'game' variable from
+before.
+Your tasks:
+1. Loop over the game.scored array and print each player name to the console,
+along with the goal number (Example: "Goal 1: Lewandowski")
+2. Use a loop to calculate the average odd and log it to the console (We already
+studied how to calculate averages, you can go check if you don't remember)
+3. Print the 3 odds to the console, but in a nice formatted way, exactly like this:
+Odd of victory Bayern Munich: 1.33
+Odd of draw: 3.25
+Odd of victory Borrussia Dortmund: 6.5
+Get the team names directly from the game object, don't hardcode them
+(except for "draw"). Hint: Note how the odds and the game objects have the
+same property names 
+4. Bonus: Create an object called 'scorers' which contains the names of the
+players who scored as properties, and the number of goals as the value. In this
+game, it will look like this:
+{
+Gnarby: 1,
+Hummels: 1,
+Lewandowski: 2
+}
+GOOD LUCK 
+*/
+
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnabry',
+      'Lewandowski',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnabry', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
+};
+
+// 1.
+for (const [goalNumber, player] of game.scored.entries()) {
+  console.log(`Goal ${goalNumber + 1}: ${player}`);
+}
+
+// 2.
+let average = 0;
+const odds = Object.values(game.odds);
+for (const odd of odds) {
+  average += odd;
+}
+console.log((average / odds.length).toFixed(1));
+
+// 3.
+const printOdd = (team, odd) => {
+  if (team === 'x') {
+    console.log(`Odd of draw: ${odd}`);
+    return;
+  }
+  console.log(`Odd of victory ${team}: ${odd}`);
+};
+printOdd(game.team1, game.odds.team1);
+printOdd(
+  Object.keys(game.odds).find(key => key === 'x'),
+  game.odds.x
+);
+printOdd(game.team2, game.odds.team2);
+
+console.log('\nJonas solution:');
+for (const [team, odd] of Object.entries(game.odds)) {
+  const str = team === 'x' ? 'draw' : `victory ${game[team]}`;
+  console.log(`Odds of ${str}: ${odd}`);
+}
+
+// 4. Bonus
+// So the solution is to loop over the array, and add the array elements as object properties, and then increase the count as we encounter a new occurence of a certain element
+const scorers = {};
+for (const player of game.scored) {
+  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+}
+
+console.log(scorers);
+
+/* 
+scored: ['Lewandowski', 'Gnabry', 'Lewandowski', 'Hummels'],
+}```
+
+In this first line, we define an object called `game` using the `const` keyword. 
+The object has one property called `scored`, which is an array of strings representing the names of the players who scored in a game.
+
+```const scorers = {};```
+
+Here, we define another object called `scorers`, which will hold the count of how many goals each player scored in the game. 
+We initialize the object as an empty object using the curly braces `{}` notation.
+
+```for (const player of game.scored) {```
+
+This is a `for...of` loop that iterates over each element of the `game.scored` array. 
+We use the `const` keyword to define a variable `player` that will hold the current element being iterated over.
+
+```scorers[player] ? scorers[player]++ : (scorers[player] = 1);```
+
+This line of code is a ternary operator, which is a shorthand way of writing an if/else statement. 
+Here's what it means:
+
+- If `scorers[player]` is truthy (e.g. not undefined, null, 0, false, or an empty string), then increment it by 1 using the `++` operator.
+- Otherwise, set `scorers[player]` to 1 using the assignment operator `=`.
+
+So in other words, this line of code checks if the player's name already exists as a property in the `scorers` object. 
+If it does, it increments the value associated with that property by 1 to represent that the player has scored another goal. 
+If the player's name doesn't exist as a property in the `scorers` object, it creates a new property with the player's name 
+and sets its value to 1 to represent that the player has scored their first goal.
+
+*/
