@@ -700,7 +700,7 @@ Lewandowski: 2
 }
 GOOD LUCK 
 */
-
+/* 
 const game = {
   team1: 'Bayern Munich',
   team2: 'Borussia Dortmund',
@@ -784,7 +784,7 @@ for (const player of game.scored) {
 }
 
 console.log(scorers);
-
+*/
 /* 
 scored: ['Lewandowski', 'Gnabry', 'Lewandowski', 'Hummels'],
 }```
@@ -816,3 +816,61 @@ If the player's name doesn't exist as a property in the `scorers` object, it cre
 and sets its value to 1 to represent that the player has scored their first goal.
 
 */
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Sets
+
+/* 
+One of the main features of a Set is that it only contains unique values. If you try to add a value that already exists in the Set, it will not be added again. This makes Sets useful for tasks like removing duplicates from an array or tracking unique values in a dataset. 
+*/
+
+// Set can hold mixed data types.
+// Accepts iterables
+
+const ordersSet = new Set(['Pasta', 'Pizza', 'Pasta', 'Pizza', 'Pasta']);
+
+console.log(ordersSet);
+
+// Since Strings are iterables:
+console.log(new Set('String'));
+
+console.log(ordersSet.size);
+console.log(ordersSet.has('Pizza'));
+console.log(ordersSet.has('Bread'));
+
+ordersSet.add('new value');
+console.log(ordersSet);
+
+ordersSet.delete('new value');
+console.log(ordersSet);
+
+// You can not retrieve values out of a set
+console.log(ordersSet[0]);
+
+// ordersSet.clear();
+// console.log(ordersSet);
+
+// Looping
+for (const order of ordersSet) {
+  console.log(order);
+}
+
+// Use case example:
+
+let staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Waiter', 'Chef'];
+
+const positions = new Set(staff);
+console.log(positions);
+// Converting back to an array
+staff = [...positions];
+console.log(staff);
+
+// OR, easier way:
+const positions2 = [...new Set(staff)];
+console.log(positions2);
+
+const numberOfPositions = new Set(staff).size;
+console.log(numberOfPositions);
+
+console.log(`Different letters in a string: ${new Set('Mississippi').size}`);
+
