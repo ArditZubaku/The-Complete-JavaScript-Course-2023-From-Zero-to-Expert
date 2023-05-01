@@ -23,7 +23,7 @@ const openingHours = {
     open: 0, // Open 24 hours
     close: 24,
   },
-  [`Test${1 + 1}`]: {},
+  // [`Test${1 + 1}`]: {},
 };
 
 // Data needed for first part of the section
@@ -594,6 +594,7 @@ console.log([...menu.entries()]);
 
 */
 
+/* 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Optional chaining (.?)
 
@@ -634,3 +635,36 @@ console.log(restaurant.orderFood?.(0, 2) ?? `Method does not exist`);
 // Using Optional chaining to check if an array is empty:
 const array = [{ name: `Jonas`, email: `test@gmail.com` }];
 console.log(array[0]?.name ?? `Array is empty`);
+
+ */
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Looping objects: object keys, values and entries.
+
+// Property names:
+const properties = Object.keys(openingHours);
+console.log(properties);
+
+let openString = `We are open on ${properties.length} days: `;
+
+for (const day of Object.keys(openingHours)) {
+  // console.log(day);
+  openString += `${day}, `;
+}
+
+openString = openString.slice(0, -1).concat('.');
+
+console.log(openString);
+
+// Property values:
+const values = Object.values(openingHours);
+console.log(values);
+
+// Entries = names+values together
+const entries = Object.entries(openingHours);
+console.log(entries);
+
+// Looping over the object
+for (const [key, { open, close }] of entries) {
+  console.log(`On ${key} we open at ${open} and close at ${close}.`);
+}
