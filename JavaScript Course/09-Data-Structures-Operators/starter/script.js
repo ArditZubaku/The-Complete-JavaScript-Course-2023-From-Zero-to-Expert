@@ -876,6 +876,7 @@ console.log(`Different letters in a string: ${new Set('Mississippi').size}`);
 
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Maps: Fundamentals.
 
@@ -929,3 +930,61 @@ console.log(restaurantMap.get(array));
 
 // Storing different data types
 restaurantMap.set(document.querySelector('h1'), 'Heading');
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Maps: Iteration.
+
+// Different way of populating new maps, array of arrays
+const question = new Map([
+  // Key value pairs array
+  ['Question', 'What is the best programming language in the world?'],
+  [1, 'C#'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['Correct', 2],
+  [true, 'Correct!'],
+  [false, 'Try again!'],
+]);
+console.log(question);
+
+// Converting object to map
+const hoursMap = new Map(Object.entries(openingHours)); // Since .entries() returns array of arrays
+console.log(hoursMap);
+// Convert a map to object ? Not quite recommended since maps can have non-String values
+
+// Quiz app
+console.log(question.get('question'));
+
+// Iteration
+for (const [key, value] of question) {
+  if (typeof key === 'number') {
+    console.log(`Answer ${key}: ${value}`);
+  }
+}
+
+// Taking the answer from the user
+// const answer = Number(prompt('Your answer: '));
+const answer = 2;
+console.log(answer);
+
+// Printing true or false strings
+// if (answer === question.get('Correct')) {
+//   console.log(question.get(true));
+// } else {
+//   console.log(question.get(false));
+// }
+
+answer === question.get('Correct')
+  ? console.log(question.get(true))
+  : console.log(question.get(false));
+
+console.log(question.get(question.get('Correct') === answer));
+
+// Convert map to array
+console.log([...question]);
+console.log(question.entries());
+console.log(...question.keys());
+console.log(...question.values());
+
+ 
