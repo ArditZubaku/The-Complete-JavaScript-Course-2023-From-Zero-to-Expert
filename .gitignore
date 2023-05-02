@@ -1,3 +1,7 @@
+.idea/
+JavaScript Course/.idea/
+JavaScript Course/**/.idea/
+**/.idea/
 # Logs
 logs
 *.log
