@@ -1012,7 +1012,7 @@ whether it's in the first half or second half (after 45 min) of the game, like t
 [FIRST HALF] 17: ⚽ GOAL
 GOOD LUCK 
 */
-
+/* 
 const gameEvents = new Map([
   [17, '⚽ GOAL'],
   [36, '🔁 Substitution'],
@@ -1050,3 +1050,60 @@ for (const [key, value] of gameEvents) {
   const half = key <= 45 ? 'FIRST' : 'SECOND';
   console.log(`[${half} HALF] ${key}: ${value}`);
 }
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Working with strings - Part 1.
+
+const airline = 'TAP Air Portugal';
+const plane = 'A320';
+
+console.log(plane[0]);
+console.log(plane[1]);
+console.log(plane[2]);
+console.log('B737'[0]);
+console.log(airline.length);
+console.log('Test'.length);
+
+// Methods
+console.log(airline.indexOf('r'));
+console.log(airline.lastIndexOf('r')); // if a letter occurres multiple times
+console.log(airline.indexOf('Portugal')); // the first occurrence of a word
+console.log(airline.indexOf('portugal')); // -1 = error
+
+// Extracting part of a string
+console.log(airline.slice(4)); // 4 = the position from where it starts
+
+// All the string methods return a new string since it is impossible to mutate strings
+
+console.log(airline.slice(4, 8)); // the end value is not included in the string
+// length = end - start
+
+console.log(airline.slice(0, airline.indexOf(' '))); // first word
+console.log(airline.slice(airline.lastIndexOf(' ') + 1)); // last word
+
+console.log(airline.slice(-2)); // extracts backwards from the end
+console.log(airline.slice(1, -1));
+
+const checkMiddleSet = seat => {
+  // B and E are middle seats
+  const s = seat.slice(-1);
+  if (s === 'B' || s === 'E') {
+    console.log('Middle seat!');
+  } else {
+    console.log('Different seat!');
+  }
+};
+
+checkMiddleSet('11B');
+checkMiddleSet('23C');
+checkMiddleSet('3E');
+
+// Behind the scenes:
+// [Boxing]: when we call a method on a string JS converts that primitive to a String obj
+console.log(typeof new String('Test'));
+// After the operation is done the Obj is converted back to a primitive
+// All string methods return primitives
+console.log(typeof new String('Test').slice(1));
+
+
