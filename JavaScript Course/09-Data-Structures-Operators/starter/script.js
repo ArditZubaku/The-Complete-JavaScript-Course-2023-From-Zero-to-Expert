@@ -1108,6 +1108,7 @@ console.log(typeof new String('Test'));
 console.log(typeof new String('Test').slice(1));
 */
 
+/* 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Working with strings - Part 2.
 
@@ -1178,3 +1179,64 @@ const checkBaggage = function (items) {
 checkBaggage('I have a laptop, some food and a KniFe.');
 checkBaggage('I have a laptop, some food and a chocolate.');
 checkBaggage('I have a laptop, a gun and a chocolate.');
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Working with strings - Part 3.
+
+// Split
+const array = 'A+very+nice+string'.split('+');
+console.log(array);
+
+console.log('Name Surname'.split(' '));
+
+const [firstName, lastName] = 'Name Surname'.split(' ');
+console.log(firstName, lastName);
+
+// Join
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+
+// Capitalizing
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const namesUpperArray = [];
+  for (const n of names) {
+    // namesUpperArray.push(n[0].toUpperCase() + n.slice(1));
+    namesUpperArray.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+  console.log(namesUpperArray.join(' '));
+};
+capitalizeName('jessica ann smith davis');
+
+// Padding
+const message = 'Go to gate 23.';
+console.log(message.padStart(25, '+'));
+console.log('Test'.padEnd(23, '='));
+
+// (how long you want it to be after padding, the value)
+console.log('Test'.padStart(10, '+').padEnd(20, '-'));
+
+const maskCreditCard = number => {
+  // const strNumber = number + '';
+  const strNumber = String(number);
+  const lastNumbers = strNumber.slice(-4);
+  const padded = lastNumbers.padStart(strNumber.length, '*');
+  console.log(padded);
+};
+
+maskCreditCard(123141414141244);
+maskCreditCard(123141414141244564647457n);
+maskCreditCard('345346364123413245435');
+
+// Repeat
+const message2 = 'Bad weather... All departures delayed! \n';
+console.log(message2.repeat(3));
+
+const planesInLine = n => {
+  console.log(`There are ${n} planes in line ${'✈️'.repeat(n)}.`);
+};
+
+planesInLine(5);
+planesInLine(3);
+planesInLine(12);
