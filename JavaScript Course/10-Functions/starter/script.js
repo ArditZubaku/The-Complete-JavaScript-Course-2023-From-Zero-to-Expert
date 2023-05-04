@@ -32,6 +32,7 @@ createBooking('LH1123', 5);
 createBooking('LH123', undefined, 1000); // this is the equivalence of skipping the parameter because setting it to undefined is the same as not setting it at all
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Pass by values vs Pass by reference
 
@@ -69,5 +70,44 @@ console.log(flight);
 console.log(jonas);
 
 // Jonas is saying that JS is only pass-by-value even tho it may look like it has pass-by-reference too
+*/
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// First-class and higher-order functions
+
+// Functions are objects ?
+
+// First-class functions = means that functions are values
+// Higher-order function = a function that receives another function as an argument (callback)
+//                     = a function that returns a new function
+//                     = does both
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Functions accepting callback functions
+
+const oneWord = function (str) {
+  return str.replace(/ /g, '').toLowerCase();
+};
+
+const upperFirstWord = function (str) {
+  const [first, ...others] = str.split(' ');
+  return [first.toUpperCase(), ...others].join(' ');
+};
+
+// Higher-order function
+const transformer = function (str, fn) {
+  console.log(`Original string: ${str}`);
+  console.log(`Transformed string: ${fn(str)}`);
+
+  console.log(`Transformed by: ${fn.name}`);
+};
+
+transformer('JavaScript is the best!', upperFirstWord);
+transformer('JavaScript is the best!', oneWord);
+
+// JS uses callbacks all the time
+const high5 = function () {
+  console.log('👋');
+};
+document.body.addEventListener('click', high5);
+['Jonas', 'Martha', 'Adam'].forEach(high5);
