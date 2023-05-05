@@ -114,6 +114,7 @@ document.body.addEventListener('click', high5);
 ['Jonas', 'Martha', 'Adam'].forEach(high5);
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Functions returning functions
 
@@ -139,3 +140,62 @@ const greet2 = greeting => name => console.log(`${greeting} ${name}`);
 
 console.log(greet2('Test 2'));
 greet2('Hello')('Jonas 2');
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// The call and apply methods
+
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  // book: function() {}
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode} ${flightNum}`
+    );
+    this.bookings.push({
+      flight: `${this.iataCode}${flightNum}`,
+      name,
+    });
+  },
+};
+
+lufthansa.book(101, 'Person 1');
+lufthansa.book(239, 'Person 2');
+console.log(lufthansa);
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+const book = lufthansa.book;
+
+// CALL METHOD
+// book(23, 'Test'); // Does not work
+book.call(eurowings, 23, 'Test'); // The object to which "this" should point to and the other args
+console.log(eurowings);
+
+book.call(lufthansa, 129, 'Person 3');
+console.log(lufthansa);
+
+const swiss = {
+  // Property names shall have the same exact format as the ones in the object which we call the method
+  airline: 'Swiss Airline',
+  iataCode: 'CH',
+  bookings: [],
+};
+
+book.call(swiss, 343, 'Swiss 1');
+console.log(swiss);
+
+// APPLY METHOD - not used that much anymore
+const arrayOfData = [583, 'Test value'];
+book.apply(swiss, arrayOfData);
+console.log(swiss);
+
+// Doing APPLY method way with CALL method
+book.call(swiss, ...arrayOfData);
+console.log(swiss);
