@@ -82,6 +82,7 @@ console.log(jonas);
 //                     = a function that returns a new function
 //                     = does both
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Functions accepting callback functions
 
@@ -111,3 +112,30 @@ const high5 = function () {
 };
 document.body.addEventListener('click', high5);
 ['Jonas', 'Martha', 'Adam'].forEach(high5);
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Functions returning functions
+
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
+
+console.log(greet('Test'));
+
+const greeterHey = greet('Hey'); // returns the function(name){}
+
+greeterHey('Jonas');
+greeterHey('Steve');
+
+// greet('Hello') returns a function therefore it is a function so what we basically are doing is:
+// someFunction('Jonas')
+greet('Hello')('Jonas');
+
+// Rewriting the greet function with only arrow functions
+const greet2 = greeting => name => console.log(`${greeting} ${name}`);
+
+console.log(greet2('Test 2'));
+greet2('Hello')('Jonas 2');
