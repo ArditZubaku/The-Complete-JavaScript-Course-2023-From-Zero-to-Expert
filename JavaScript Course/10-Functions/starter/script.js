@@ -348,7 +348,7 @@ Test data for bonus:
 Hints: Use many of the tools you learned about in this and the last section 
 GOOD LUCK 
 */
-
+/* 
 const poll = {
   question: 'What is your favourite programming language?',
   options: ['0: JavaScript', '1: Python', '2: Rust', '3:C++'],
@@ -398,3 +398,40 @@ const data_1 = {
 
 // poll.displayResults.call({ answers: [5, 2, 3] });
 poll.displayResults.call(data_1, 'string');
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Immediately invoked function expressions (IIFE).
+
+/* 
+Yes, Immediately Invoked Function Expressions (IIFE) can be considered anonymous functions in JavaScript because they do not have a name and are executed immediately after they are defined. They are often used to create a private scope for variables and functions to avoid polluting the global namespace.
+*/
+
+const runOnce = function () {
+  console.log('This will never run again ?');
+};
+
+runOnce();
+runOnce();
+
+// IIFE
+(function () {
+  // Provides private scope
+  const isPrivate = 23;
+  console.log('This will only run once !');
+})(); // the function getting called via ()
+
+// console.log(isPrivate);
+
+// IIFE - arrow functions
+(() => {
+  console.log(`This will also run only once !`);
+})();
+
+{
+  const isPrivate = 23;
+  var notPrivate = 46;
+}
+
+// console.log(isPrivate);
+console.log(notPrivate);
