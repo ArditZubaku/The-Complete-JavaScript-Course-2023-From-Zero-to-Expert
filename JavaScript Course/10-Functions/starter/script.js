@@ -436,7 +436,7 @@ runOnce();
 // console.log(isPrivate);
 console.log(notPrivate);
 */
-
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Closures.
 
@@ -457,3 +457,51 @@ booker();
 // A closure makes sure that a function doesn't loose connection to variables that existed at the function's birth place
 
 console.dir(booker);
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// More closure examples.
+
+// Example 1
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    // Inherits the variables of the parent environment in which it was created
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+g();
+f();
+console.dir(f);
+
+// Re-assigning f function
+h();
+f();
+console.dir(f);
+
+// Example 2
+const boardPassengers = function (n, wait) {
+  // const perGroup = n / 3;
+
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers.`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers.`);
+  }, wait * 1_000);
+
+  console.log(`Will start boarding in ${wait} seconds.`);
+};
+
+// Closure has priority over the scope chain
+const perGroup = 1999;
+
+boardPassengers(180, 3);
