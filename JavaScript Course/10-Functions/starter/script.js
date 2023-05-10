@@ -406,7 +406,7 @@ poll.displayResults.call(data_1, 'string');
 /* 
 Yes, Immediately Invoked Function Expressions (IIFE) can be considered anonymous functions in JavaScript because they do not have a name and are executed immediately after they are defined. They are often used to create a private scope for variables and functions to avoid polluting the global namespace.
 */
-
+/* 
 const runOnce = function () {
   console.log('This will never run again ?');
 };
@@ -435,3 +435,25 @@ runOnce();
 
 // console.log(isPrivate);
 console.log(notPrivate);
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Closures.
+
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers.`);
+  };
+};
+
+const booker = secureBooking();
+booker();
+booker();
+booker();
+
+// A closure makes sure that a function doesn't loose connection to variables that existed at the function's birth place
+
+console.dir(booker);
