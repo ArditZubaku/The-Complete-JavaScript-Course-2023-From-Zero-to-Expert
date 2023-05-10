@@ -74,3 +74,45 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Simple array methods.
+
+// Arrays are objects.
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+// SLICE
+// Extracting/slicing part of the array
+console.log(arr.slice(2));
+console.log(arr.slice(2, 3)); // last paramater doesnt get included
+console.log(arr.slice(-2)); // starts from the end => last two elements
+console.log(arr.slice(1, -2));
+
+const arrayCopy = arr.slice();
+console.log(arrayCopy);
+const arrayCopy2 = [...arr];
+console.log(arrayCopy2);
+
+// SPLICE
+// Works the same way as slice, but it actually mutates the array
+console.log(arr.splice(2)); //Slices the part we want and removes it from the array
+console.log(arr);
+
+// Removing the last element of an array
+arr.splice(-1);
+console.log(arr);
+
+// REVERSE
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['j', 'i', 'h', 'g', 'f'];
+console.log(arr2.reverse()); // Mutates the original array
+console.log(arr2);
+
+// CONCAT
+const letters = arr.concat(arr2); // Doesn't mutate
+console.log(letters);
+console.log([...arr, ...arr2]);
+
+// JOIN
+console.log(letters.join('-'));
