@@ -74,7 +74,7 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
-
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Simple array methods.
 
@@ -116,3 +116,22 @@ console.log([...arr, ...arr2]);
 
 // JOIN
 console.log(letters.join('-'));
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// The new "at" method.
+
+const array = [1,2,3,4,5];
+console.log(array[0]);
+console.log(array.at(0));
+
+// Traditional getting the last array element:
+console.log(array[array.length-1]);
+console.log(array.slice(-1)[0]); // Returns a new array from which we extract the element
+//New "at" method
+console.log(array.at(-1));
+
+// With strings
+console.log('Jonas'.at(0));
+console.log('Jonas'.at(-1));
+console.log('Jonas'.at(-'Jonas'.length));
