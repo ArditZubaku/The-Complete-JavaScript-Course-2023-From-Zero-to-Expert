@@ -65,11 +65,11 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -137,7 +137,7 @@ console.log('Jonas'.at(0));
 console.log('Jonas'.at(-1));
 console.log('Jonas'.at(-'Jonas'.length));
 */
-
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Looping arrays: foreach.
 
@@ -171,4 +171,29 @@ movements.forEach(function (movement, index, array) { // This order of m,i,a arg
 
 movements.forEach(element => {
   console.log(element);
+});
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Foreach with maps and sets.
+
+// Map
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+currencies.forEach((currentValue, key, entireMap) => {
+  console.log(`${key}:  ${currentValue}`);
+  l;
+  // console.log(entireMap);
+});
+
+// Set
+const currenciesUnique = new Set(['USD', 'GBP', 'EUR', 'EUR', 'USD']);
+
+currenciesUnique.forEach((currentValue, _, entireSet) => {
+  // "_" - throwaway variable - variable completely unneccessary
+  console.log(`${currentValue}:  ${currentValue}`);
 });
