@@ -382,6 +382,7 @@ const movementsDescriptions = movements.map(
 console.log(movementsDescriptions);
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Computing usernames.
 
@@ -431,3 +432,29 @@ const user = 'Steven Thomas Williams'; // Username = STW
 // createUsernames(user);
 createUsernames(accounts);
 console.log(accounts);
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// The filter method.
+
+/* 
+To determine if filter() returns a new array or not based on reading the documentation, you should look for language indicating whether the method is pure or impure.
+
+A pure function is one that does not modify its arguments and always returns a new value. According to the documentation, the filter() method is a pure function. This means that filter() does not modify the original array, but instead creates a new array containing the elements that pass the test.
+*/
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// Using for-of
+const newArray = [];
+for (const movement of movements) {
+  if (movement > 0) {
+    newArray.push(movement);
+  }
+}
+
+// Using filter
+const deposites = movements.filter(movement => movement > 0);
+console.log(deposites);
+
+const withdrawals = movements.filter(movement => movement < 0)
