@@ -314,7 +314,7 @@ TEST DATA 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
 
 GOOD LUCK 
 */
-
+/* 
 const checkDogs = (dogsJulia, dogsKate) => {
   const dogsJuliaCopy = dogsJulia.slice();
   dogsJuliaCopy.splice(0, 1);
@@ -339,3 +339,43 @@ const checkDogs = (dogsJulia, dogsKate) => {
 
 checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
 checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Data transformations: map, filter, reduce
+
+// Map creates a new array -> whatever function we ask it to do, it maps the new values to a new array
+
+// Filter creates a new array -> with values that satisfy a certain given condition
+
+// Reduce returns a value -> reduces all array elements down to one single value (e.g adding all elements together)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Data transformations: The map method
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const euroToUSD = 1.1;
+
+const newMovements = movements.map(element => Math.round(element * euroToUSD));
+
+console.log(newMovements);
+console.log(movements);
+
+// Same thing using a for-of loop
+// let newMovements2 = [];
+const newMovements2 = [];
+for (const element of movements) {
+  newMovements2.push(Math.round(element * euroToUSD));
+}
+console.log(newMovements2);
+
+// Like the forEach method, map has 3 parameters too
+const movementsDescriptions = movements.map(
+  (movement, index) =>
+    `Movement ${index + 1}: You ${
+      movement > 0 ? 'deposited' : 'withdrew'
+    } ${Math.abs(movement)}.`
+);
+
+console.log(movementsDescriptions);
