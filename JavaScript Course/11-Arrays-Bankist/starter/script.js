@@ -203,36 +203,36 @@ currenciesUnique.forEach((currentValue, _, entireSet) => {
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Project: "Bankist" app
 
-// Data
-const account1 = {
-  owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  interestRate: 1.2, // %
-  pin: 1111,
-};
+// // Data
+// const account1 = {
+//   owner: 'Jonas Schmedtmann',
+//   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+//   interestRate: 1.2, // %
+//   pin: 1111,
+// };
 
-const account2 = {
-  owner: 'Jessica Davis',
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-  interestRate: 1.5,
-  pin: 2222,
-};
+// const account2 = {
+//   owner: 'Jessica Davis',
+//   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+//   interestRate: 1.5,
+//   pin: 2222,
+// };
 
-const account3 = {
-  owner: 'Steven Thomas Williams',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  interestRate: 0.7,
-  pin: 3333,
-};
+// const account3 = {
+//   owner: 'Steven Thomas Williams',
+//   movements: [200, -200, 340, -300, -20, 50, 400, -460],
+//   interestRate: 0.7,
+//   pin: 3333,
+// };
 
-const account4 = {
-  owner: 'Sarah Smith',
-  movements: [430, 1000, 700, 50, 90],
-  interestRate: 1,
-  pin: 4444,
-};
+// const account4 = {
+//   owner: 'Sarah Smith',
+//   movements: [430, 1000, 700, 50, 90],
+//   interestRate: 1,
+//   pin: 4444,
+// };
 
-const accounts = [account1, account2, account3, account4];
+// const accounts = [account1, account2, account3, account4];
 
 // Selected elements
 const labelWelcome = document.querySelector('.welcome');
@@ -350,6 +350,7 @@ checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 
 // Reduce returns a value -> reduces all array elements down to one single value (e.g adding all elements together)
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Data transformations: The map method
 
@@ -379,3 +380,54 @@ const movementsDescriptions = movements.map(
 );
 
 console.log(movementsDescriptions);
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Computing usernames.
+
+// Data
+const account1 = {
+  owner: 'Jonas Schmedtmann',
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  interestRate: 1.2, // %
+  pin: 1111,
+};
+
+const account2 = {
+  owner: 'Jessica Davis',
+  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  interestRate: 1.5,
+  pin: 2222,
+};
+
+const account3 = {
+  owner: 'Steven Thomas Williams',
+  movements: [200, -200, 340, -300, -20, 50, 400, -460],
+  interestRate: 0.7,
+  pin: 3333,
+};
+
+const account4 = {
+  owner: 'Sarah Smith',
+  movements: [430, 1000, 700, 50, 90],
+  interestRate: 1,
+  pin: 4444,
+};
+
+const accounts = [account1, account2, account3, account4];
+
+const createUsernames = accounts => {
+  accounts.forEach(
+    account =>
+      (account['username'] = account['owner']
+        .toUpperCase()
+        .split(' ')
+        .map(element => element.charAt(0))
+        .join(''))
+  );
+};
+
+const user = 'Steven Thomas Williams'; // Username = STW
+// createUsernames(user);
+createUsernames(accounts);
+console.log(accounts);
