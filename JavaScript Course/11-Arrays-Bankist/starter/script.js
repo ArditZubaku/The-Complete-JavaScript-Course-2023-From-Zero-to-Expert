@@ -71,7 +71,7 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 /* 
@@ -118,6 +118,7 @@ console.log([...arr, ...arr2]);
 console.log(letters.join('-'));
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // The new "at" method.
 
@@ -135,3 +136,39 @@ console.log(array.at(-1));
 console.log('Jonas'.at(0));
 console.log('Jonas'.at(-1));
 console.log('Jonas'.at(-'Jonas'.length));
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Looping arrays: foreach.
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}.`);
+  } else {
+    console.log(
+      `Movement ${i + 1}: You withdrew ${Math.abs(movement)}.`
+    );
+  }
+}
+
+console.log('--- For each ---');
+
+// Foreach provides the current element, current index and the entire array
+// Calls the function to be executed on each element
+movements.forEach(function (movement, index, array) { // This order of m,i,a args matters
+  if (movement > 0) {
+    console.log(`Movement ${index + 1}: You deposited ${movement}.`);
+  } else {
+    console.log(
+      `Movement ${index + 1}: You withdrew ${Math.abs(movement)}.`
+    );
+  }
+
+  // Continue and break statements don't work inside a forEach loop
+});
+
+movements.forEach(element => {
+  console.log(element);
+});
