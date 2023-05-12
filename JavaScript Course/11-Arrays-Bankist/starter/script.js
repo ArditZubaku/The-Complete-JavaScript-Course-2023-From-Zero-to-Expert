@@ -203,36 +203,36 @@ currenciesUnique.forEach((currentValue, _, entireSet) => {
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Project: "Bankist" app
 
-// // Data
-// const account1 = {
-//   owner: 'Jonas Schmedtmann',
-//   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-//   interestRate: 1.2, // %
-//   pin: 1111,
-// };
+// Data
+const account1 = {
+  owner: 'Jonas Schmedtmann',
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  interestRate: 1.2, // %
+  pin: 1111,
+};
 
-// const account2 = {
-//   owner: 'Jessica Davis',
-//   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-//   interestRate: 1.5,
-//   pin: 2222,
-// };
+const account2 = {
+  owner: 'Jessica Davis',
+  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  interestRate: 1.5,
+  pin: 2222,
+};
 
-// const account3 = {
-//   owner: 'Steven Thomas Williams',
-//   movements: [200, -200, 340, -300, -20, 50, 400, -460],
-//   interestRate: 0.7,
-//   pin: 3333,
-// };
+const account3 = {
+  owner: 'Steven Thomas Williams',
+  movements: [200, -200, 340, -300, -20, 50, 400, -460],
+  interestRate: 0.7,
+  pin: 3333,
+};
 
-// const account4 = {
-//   owner: 'Sarah Smith',
-//   movements: [430, 1000, 700, 50, 90],
-//   interestRate: 1,
-//   pin: 4444,
-// };
+const account4 = {
+  owner: 'Sarah Smith',
+  movements: [430, 1000, 700, 50, 90],
+  interestRate: 1,
+  pin: 4444,
+};
 
-// const accounts = [account1, account2, account3, account4];
+const accounts = [account1, account2, account3, account4];
 
 // Selected elements
 const labelWelcome = document.querySelector('.welcome');
@@ -291,6 +291,13 @@ const displayMovements = movements => {
 };
 
 displayMovements(account1.movements);
+
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+
+calcDisplayBalance(account1.movements);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Coding Challenge #17.
@@ -442,7 +449,7 @@ To determine if filter() returns a new array or not based on reading the documen
 
 A pure function is one that does not modify its arguments and always returns a new value. According to the documentation, the filter() method is a pure function. This means that filter() does not modify the original array, but instead creates a new array containing the elements that pass the test.
 */
-
+/* 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // Using for-of
@@ -458,3 +465,33 @@ const deposites = movements.filter(movement => movement > 0);
 console.log(deposites);
 
 const withdrawals = movements.filter(movement => movement < 0)
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// The reduce method.
+
+// We use the reduce method to boil down all the elements in an array to one single value
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+console.log(movements);
+
+// Accumulator -> snowball
+const balance = movements.reduce((accumulator, currentValue, index, array) => {
+  console.log(`Iteration nr: ${index}: ${accumulator}`);
+  return accumulator + currentValue;
+}, 1000);
+
+console.log(balance);
+
+// Same thing, via for-of
+let balance2 = 0;
+for (const movement of movements) balance2 += movement;
+console.log(balance2);
+
+// Maximum value
+const max = movements.reduce(
+  (acc, mov) => (acc > mov ? acc : mov),
+  movements[0]
+);
+console.log(max);
