@@ -562,6 +562,7 @@ console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
 console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // The magic of chaining methods.
 
@@ -579,3 +580,30 @@ const totalDepositUSD = movements
   .reduce((v1, v2) => v1 + v2, 0);
 
 console.log(totalDepositUSD);
+
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Coding Challenge #19.
+
+/*
+Coding Challenge #3
+
+Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
+
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+
+GOOD LUCK
+*/
+
+const calcAverageHumanAge = ages =>
+  ages
+    .map(e => (e <= 2 ? e * 2 : 16 + e * 4))
+    .filter(e => e >= 18)
+    .reduce((v1, v2, i, array) => v1 + v2 / array.length, 0);
+// Only the second value is divided, since that value after division is added to the accumulator
+// which means that every value gets divided before being added to.
+
+console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
+console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
