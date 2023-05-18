@@ -290,14 +290,10 @@ const displayMovements = movements => {
   });
 };
 
-displayMovements(account1.movements);
-
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${balance}€`;
 };
-
-calcDisplayBalance(account1.movements);
 
 calcDisplaySummary = movements => {
   const incomes = movements
@@ -319,7 +315,47 @@ calcDisplaySummary = movements => {
   labelSumInterest.textContent = `${interest}€`;
 };
 
-calcDisplaySummary(account1.movements);
+const createUsernames = accounts => {
+  accounts.forEach(
+    account =>
+      (account['username'] = account['owner']
+        .toUpperCase()
+        .split(' ')
+        .map(element => element.charAt(0))
+        .join(''))
+  );
+};
+
+// Event handlers
+let currentAccount;
+btnLogin.addEventListener('click', event => {
+  // Prevent form from submitting
+  event.preventDefault();
+  // console.log('LOGIN');
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI and welcome message
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(
+      ' '[0]
+    )}`;
+    containerApp.style.opacity = 100;
+
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    // Remove focus
+    inputLoginPin.blur();
+
+    // Display movements
+    displayMovements(currentAccount.movements);
+    // Display balance
+    calcDisplayBalance(currentAccount.movements);
+    // Display summary
+    calcDisplaySummary(currentAccount);
+    // console.log('LOGIN');
+  }
+});
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Coding Challenge #17.
