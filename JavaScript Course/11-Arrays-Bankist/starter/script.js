@@ -274,7 +274,7 @@ const displayMovements = movements => {
       <div class="movements__type movements__type--${depositOrWithdrawal}">${
       index + 1
     } ${depositOrWithdrawal}</div>
-      <div class="movements__value">${element}</div>
+      <div class="movements__value">${element}€</div>
     </div>
     `;
 
@@ -294,10 +294,32 @@ displayMovements(account1.movements);
 
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} EUR`;
+  labelBalance.textContent = `${balance}€`;
 };
 
 calcDisplayBalance(account1.movements);
+
+calcDisplaySummary = movements => {
+  const incomes = movements
+    .filter(movement => movement > 0)
+    .reduce((v1, v2) => v1 + v2, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const outcomes = movements
+    .filter(movement => movement < 0)
+    .reduce((v1, v2) => v1 + v2, 0);
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`;
+
+  const interest = movements
+    .filter(movement => movement < 0)
+    .map(deposit => deposit * (1.2 / 100))
+    .filter(interest => interest >= 1)
+    .reduce((v1, v2) => v1 + v2, 0);
+
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Coding Challenge #17.
@@ -466,7 +488,7 @@ console.log(deposites);
 
 const withdrawals = movements.filter(movement => movement < 0)
 */
-
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // The reduce method.
 
@@ -495,6 +517,7 @@ const max = movements.reduce(
   movements[0]
 );
 console.log(max);
+*/
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Coding Challenge #18.
@@ -517,7 +540,7 @@ TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 
 GOOD LUCK 
 */
-
+/* 
 const calcAverageHumanAge = ages => {
   const humanAges = ages.map(e => {
     return e <= 2 ? e * 2 : 16 + e * 4;
@@ -537,3 +560,22 @@ const calcAverageHumanAge = ages => {
 
 console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
 console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// The magic of chaining methods.
+
+// Consider method chaining as a pipeline.
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const totalDepositUSD = movements
+  .filter(movement => movement > 0)
+  // .map(movement => movement * 1.1)
+  .map((movement, index, array) => {
+    // console.log(array);
+    return movement * 1.1;
+  })
+  .reduce((v1, v2) => v1 + v2, 0);
+
+console.log(totalDepositUSD);
