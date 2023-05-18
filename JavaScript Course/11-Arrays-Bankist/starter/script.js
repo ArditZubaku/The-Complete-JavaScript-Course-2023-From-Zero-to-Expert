@@ -607,3 +607,16 @@ const calcAverageHumanAge = ages =>
 
 console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
 console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// The find method.
+
+// Like filter but returns one value (the first) that fits the condition not an entire array.
+
+const firstWithDrawl = movements.find(movement => movement < 0);
+console.log(firstWithDrawl);
+
+console.log(accounts);
+
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
