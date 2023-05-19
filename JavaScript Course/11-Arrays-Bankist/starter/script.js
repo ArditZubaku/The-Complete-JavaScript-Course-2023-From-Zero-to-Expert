@@ -388,8 +388,27 @@ btnTransfer.addEventListener('click', event => {
     receiverAccount.movements.push(amount);
 
     // Update UI
-    updateUI(account);
+    updateUI(currentAccount);
   }
+});
+
+btnLoan.addEventListener('click', ev => {
+  ev.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+  if (
+    amount > 0 &&
+    currentAccount.movements.some(movement => movement >= amount * 0.1)
+  ) {
+    // Add movement
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
+  }
+
+  // Clear input fields
+  inputLoanAmount.value = inputTransferTo.value = '';
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -691,7 +710,7 @@ TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 
 GOOD LUCK
 */
-
+/*
 const calcAverageHumanAge = ages =>
   ages
     .map(e => (e <= 2 ? e * 2 : 16 + e * 4))
@@ -714,3 +733,28 @@ console.log(firstWithDrawl);
 console.log(accounts);
 
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Some and every methods.
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// Checks for equality
+console.log(movements.includes(-130));
+
+// Some = includes but with a condition and not just a value
+console.log(movements.some(movement => movement === -130));
+
+const anyDeposit = movements.some(movement => movement > 5000);
+console.log(anyDeposit);
+
+// Every = like Some, but returns true only if all the values meet the condition
+console.log(movements.every(movement => movement > 0));
+console.log(account4.movements.every(movement => movement > 0));
+
+// Passing callbacks as separate functions
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
