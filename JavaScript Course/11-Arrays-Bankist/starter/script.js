@@ -270,11 +270,11 @@ const displayMovements = movements => {
     const depositOrWithdrawal = element > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
-    <div class="movements__row">
-      <div class="movements__type movements__type--${depositOrWithdrawal}">${
+    <div class='movements__row'>
+      <div class='movements__type movements__type--${depositOrWithdrawal}'>${
       index + 1
     } ${depositOrWithdrawal}</div>
-      <div class="movements__value">${element}€</div>
+      <div class='movements__value'>${element}€</div>
     </div>
     `;
 
@@ -296,7 +296,7 @@ const calcDisplayBalance = function (account) {
   labelBalance.textContent = `${balance}€`;
 };
 
-calcDisplaySummary = movements => {
+const calcDisplaySummary = movements => {
   const incomes = movements
     .filter(movement => movement > 0)
     .reduce((v1, v2) => v1 + v2, 0);
@@ -326,6 +326,8 @@ const createUsernames = accounts => {
         .join(''))
   );
 };
+
+createUsernames(accounts);
 
 const updateUI = function (account) {
   displayMovements(account.movements);
@@ -388,6 +390,30 @@ btnTransfer.addEventListener('click', event => {
     // Update UI
     updateUI(account);
   }
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// The findIndex method.
+btnClose.addEventListener('click', function (event) {
+  event.preventDefault();
+  // console.log('Delete');
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      account => account.username === currentAccount.username
+    );
+
+    // Delete account
+    accounts.splice(index, 1);
+
+    // Hide UI
+    containerApp.style.opacity = '0';
+  }
+
+  inputTransferAmount.value = inputTransferTo.value = '';
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
