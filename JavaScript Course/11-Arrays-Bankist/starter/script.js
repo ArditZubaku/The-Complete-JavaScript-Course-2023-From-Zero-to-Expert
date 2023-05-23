@@ -882,7 +882,7 @@ labelBalance.addEventListener('click', () => {
 */
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-// Summary: Which array method to use ? 
+// Summary: Which array method to use ?
 
 /* To mutate original array:
 -Add to original: push() => end, unshift() => start
@@ -915,14 +915,12 @@ labelBalance.addEventListener('click', () => {
 
 ////////////////////////////////////////////////////////////////////////////
 
-
 /* Know if array includes:
 -Based on value: includes()
 -Based on test condition: some(), every()
 */
 
 ////////////////////////////////////////////////////////////////////////////
-
 
 /* A new string:
 -Based on separator string: join()
@@ -939,3 +937,73 @@ labelBalance.addEventListener('click', () => {
 /* To just loop array:
 -Based on callback: forEach()
 */
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Array methods practice.
+
+// 1.
+// const bankDepositSum = accounts.map(acc => acc.movements).flat();
+const bankDepositSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, curr) => sum + curr, 0);
+console.log(bankDepositSum);
+
+// 2.
+// How many deposits with at least 1k ?
+const numDeposits1k = accounts
+  .flatMap(acc => acc.movements)
+  // .filter(mov => mov >= 1000).length;
+  // .reduce((count, curr) => (curr >= 1000 ? count++ : count), 0); // Wont work bc iteration
+  // .reduce((count, curr) => (curr >= 1000 ? ++count : count), 0); // Works bc gets incremented before iteration
+  .reduce((count, curr) => (curr >= 1000 ? count + 1 : count), 0);
+
+console.log(numDeposits1k);
+
+let a = 10;
+console.log(a++);
+console.log(a);
+
+// 3.
+// Create an object which contains the sum of the deposits and the withdrawls
+const { deposits, withdrawls } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sum, curr) => {
+      // curr > 0 ? (sum.deposits += curr) : (sum.withdrawls += curr);
+      sum[curr > 0 ? 'deposits' : 'withdrawls'] += curr;
+      return sum;
+    },
+    { deposits: 0, withdrawls: 0 } // This object is actually === sum bc it represents the initial value of accumulator
+  );
+
+console.log(deposits);
+console.log(withdrawls);
+
+const test = {
+  test1: 10,
+};
+
+// 4.
+// this is a nice title => This Is a Nice Title ("a" is the exception)
+const convertTitleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'in', 'with'];
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word =>
+      exceptions.includes(word)
+        ? word
+        : // : word.charAt(0).toUpperCase().concat(word.slice(1))
+          capitalize(word)
+    )
+    .join(' ');
+
+  return capitalize(titleCase); // To prevent from the first word being an exception
+};
+
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not too long'));
+console.log('and here is another TITLE example');
