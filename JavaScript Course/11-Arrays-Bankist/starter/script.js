@@ -71,7 +71,7 @@
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 /* 
@@ -263,10 +263,12 @@ const inputClosePin = document.querySelector('.form__input--pin');
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Creating DOM elements.
 
-const displayMovements = movements => {
+const displayMovements = (movements, sort = false) => {
   containerMovements.innerHTML = '';
 
-  movements.forEach((element, index) => {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach((element, index) => {
     const depositOrWithdrawal = element > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -433,6 +435,16 @@ btnClose.addEventListener('click', function (event) {
   }
 
   inputTransferAmount.value = inputTransferTo.value = '';
+});
+
+let sorted = false;
+
+btnSort.addEventListener('click', event => {
+  event.preventDefault();
+
+  displayMovements(currentAccount.movements, !sorted);
+
+  sorted = !sorted;
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -761,6 +773,7 @@ console.log(movements.every(deposit));
 console.log(movements.filter(deposit));
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Flat and flatmap methods.
 
@@ -791,3 +804,35 @@ console.log(overallBalance2);
 const overallBalance3 = accounts
   .flatMap(acc => acc.movements) // Goes only one level deep, if needed deeper use flat()
   .reduce((acc, mov) => acc + mov, 0);
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Sorting arrays.
+
+// Strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort()); // Mutates original array
+console.log(owners);
+
+// Numbers
+console.log(movements);
+// console.log(movements.sort()); // sort() sorts in a strings way => -1 comes before 1, etc
+
+// return < 0 => A, B (keep order)
+// return > 0 => B, A (switch order)
+
+// ASC
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+movements.sort((a, b) => a - b); // if a>=b => a-b >= 0 => return 1, if a<b => a-b < 0 => return -1
+console.log(movements);
+
+// DESC
+// movements.sort((a, b) => {
+//   if (a < b) return 1;
+//   if (a > b) return -1;
+// });
+movements.sort((a, b) => b - a);
+console.log(movements);
