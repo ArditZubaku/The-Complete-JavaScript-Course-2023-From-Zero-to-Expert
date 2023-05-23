@@ -735,6 +735,7 @@ console.log(accounts);
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Some and every methods.
 
@@ -758,3 +759,35 @@ const deposit = mov => mov > 0;
 console.log(movements.some(deposit));
 console.log(movements.every(deposit));
 console.log(movements.filter(deposit));
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Flat and flatmap methods.
+
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat()); // Removes nested arrays (hence flattens the array)
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat()); // Default: one level deep flattening
+console.log(arrDeep.flat(2)); // Two levels deep
+
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);
+
+const allMovements = accountMovements.flat();
+console.log(allMovements);
+
+const overallBalance1 = allMovements.reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance1);
+
+const overallBalance2 = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((v1, v2) => v1 + v2, 0);
+console.log(overallBalance2);
+
+// Flat x Map in one place = flatMap()
+
+const overallBalance3 = accounts
+  .flatMap(acc => acc.movements) // Goes only one level deep, if needed deeper use flat()
+  .reduce((acc, mov) => acc + mov, 0);
