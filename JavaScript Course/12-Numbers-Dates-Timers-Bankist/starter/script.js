@@ -378,6 +378,7 @@ console.log(Number('230_000')); // Doesn't work with strings
 console.log(parseInt('230_000')); // Takes only the first "number part" it finds 
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Working with BigInt.
 
@@ -415,3 +416,40 @@ console.log(huge + 'is REALLY BIG');
 
 // Divisions
 console.log('Returns closest bigint: ', 10n / 3n);
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Creating dates.
+
+// Create a date
+const now = new Date();
+console.log(now);
+
+console.log(new Date('Aug 02 2023 19:05:44'));
+console.log(new Date('October 24, 2002'));
+
+console.log(new Date(account1.movementsDates[0]));
+
+console.log(new Date(2037, 10, 19, 23, 49, 15, 10));
+console.log(new Date(2037, 10, 40, 72, 49, 15, 10)); //  Autocorrects date
+
+console.log(new Date(0)); // Beginning of Unix time
+console.log(new Date(3 * 24 * 60 * 60 * 1000)); // 3 days after that
+
+// Working with dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth()); // 0  based => 10 === 11th month
+console.log(future.getDate()); // Returns the day of the months
+console.log(future.getDay()); // Returns the day of the week => 0 = Sunday...
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime()); // Timestamp === the milliseconds that have passed since 1.1.1970
+console.log(new Date(2142253380000));
+console.log(Date.now()); // Current timestamp
+
+future.setFullYear(2040);
+console.log(future);
