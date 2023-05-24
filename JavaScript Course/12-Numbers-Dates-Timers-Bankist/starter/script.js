@@ -330,6 +330,7 @@ console.log((2.4131312313).toFixed(5));
 console.log(+(2.1).toFixed(5)); // Number
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // The remainder operator.
 
@@ -354,3 +355,23 @@ labelBalance.addEventListener('click', function () {
     }
   });
 });
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Numeric separators.
+
+const diameter = 287_460_000_000;
+console.log(diameter);
+
+const priceCents = 345_99;
+console.log(priceCents);
+
+const transferFee1 = 15_00;
+const transferFee2 = 1_500;
+
+const PI_1 = 3.14_15;
+// const PI_2 = 3._14_15; // Only in between numbers allowed
+
+console.log(Number('230000'));
+console.log(Number('230_000')); // Doesn't work with strings
+console.log(parseInt('230_000')); // Takes only the first "number part" it finds 
