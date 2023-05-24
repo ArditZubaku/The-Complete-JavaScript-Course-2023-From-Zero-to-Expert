@@ -357,6 +357,7 @@ labelBalance.addEventListener('click', function () {
 });
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Numeric separators.
 
@@ -375,3 +376,42 @@ const PI_1 = 3.14_15;
 console.log(Number('230000'));
 console.log(Number('230_000')); // Doesn't work with strings
 console.log(parseInt('230_000')); // Takes only the first "number part" it finds 
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Working with BigInt.
+
+// BigInt is a 64-bit integer.
+// BigInt is immutable.
+
+console.log(2 ** 53 - 1); // Biggest number JS can represent safely
+console.log(Number.MAX_SAFE_INTEGER);
+
+console.log(2 ** 53 + 1);
+
+console.log(132132123414312313131321312313132131n); // "n" at the end makes it a bigint
+console.log(BigInt(132132123414312313131321312313132131n));
+
+// Operations
+console.log(1000n + 100000n);
+console.log(12313211322131231n * 121213213213121313132n);
+
+const huge = 2131312211231232121131n;
+const reg_num = 1231231313213;
+// console.log('Cant mix them', huge * reg_num);
+console.log('Can mix them', huge * BigInt(reg_num));
+
+// console.log(Math.sqrt(16n)); // Doesn't work
+
+// Works for comparisons:
+console.log(20n > 15);
+console.log(20n === 20); // Different data types
+console.log(typeof 20n);
+console.log(20n == 20); // Loose one works => compares only values
+console.log(20n == '20'); // Type coercion
+
+// String concatination:
+console.log(huge + 'is REALLY BIG');
+
+// Divisions
+console.log('Returns closest bigint: ', 10n / 3n);
