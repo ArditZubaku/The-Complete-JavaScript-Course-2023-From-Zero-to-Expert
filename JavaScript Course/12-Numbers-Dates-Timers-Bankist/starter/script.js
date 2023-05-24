@@ -290,6 +290,7 @@ console.log(Number.isInteger(20));
 console.log(Number.isInteger(23 / 0));
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Math and rounding.
 
@@ -327,3 +328,29 @@ console.log((2.7).toFixed(0)); // toFixed adds values after the integer part, an
 console.log((2.4).toFixed(5));
 console.log((2.4131312313).toFixed(5));
 console.log(+(2.1).toFixed(5)); // Number
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// The remainder operator.
+
+console.log(5 % 2);
+console.log(8 % 3);
+console.log(8 / 3);
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(9));
+console.log(isEven(8));
+console.log(isEven(100));
+console.log(isEven(101));
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    if (i % 2 === 0) {
+      row.style.backgroundColor = 'orangered';
+    }
+
+    if (i % 3 === 0) {
+      row.style.backgroundColor = 'blue';
+    }
+  });
+});
