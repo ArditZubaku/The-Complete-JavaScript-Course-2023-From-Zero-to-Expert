@@ -81,7 +81,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const formatMovementDate = function (date) {
+const formatMovementDate = function (date, locale) {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
@@ -93,11 +93,13 @@ const formatMovementDate = function (date) {
   if (daysPassed <= 7) return `${daysPassed} days ago`;
 
   // Day/Month/Year
-  const day = `${date.getDate()}`.padStart(2, 0);
-  const month = `${date.getMonth() + 1}`.padStart(2, 0);
-  const year = date.getFullYear();
+  // const day = `${date.getDate()}`.padStart(2, 0);
+  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  // const year = date.getFullYear();
 
-  return `${day}/${month}/${year}`;
+  // return `${day}/${month}/${year}`;
+
+  return new Intl.DateTimeFormat(locale).format(date);
 };
 
 const displayMovements = function (acc, sort = false) {
@@ -112,7 +114,7 @@ const displayMovements = function (acc, sort = false) {
 
     const date = new Date(acc.movementsDates[i]);
 
-    const displayDate = formatMovementDate(date);
+    const displayDate = formatMovementDate(date, acc.locale);
 
     const html = `
       <div class="movements__row">
@@ -186,6 +188,28 @@ currentAccount = account1;
 updateUI(currentAccount);
 containerApp.style.opacity = 100;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Internationalizing dates (INTL).
+
+// Experimenting with the API
+// const now = new Date();
+// // labelDate.textContent = new Intl.DateTimeFormat('sq-AL').format(now);
+// const options = {
+//   hour: 'numeric',
+//   minute: 'numeric',
+//   day: 'numeric',
+//   month: 'long',
+//   // month: "2-digit",
+//   year: 'numeric',
+//   // weekday: 'numeric',
+// };
+
+// // Getting the locale from the user's browser
+// const locale = navigator.language;
+// console.log(locale);
+
+// labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(now);
+
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
   e.preventDefault();
@@ -205,18 +229,37 @@ btnLogin.addEventListener('click', function (e) {
     //////////////////////////////////////////////////////////////////////////////////////////////////
     // Adding dates to bankist app.
 
-    // Create current date and time
     const now = new Date();
-    // Day/Month/Year
-    const day = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const year = now.getFullYear();
-    const hour = `${now.getHours()}`.padStart(2, 0);
-    const min = `${now.getMinutes()}`.padStart(2, 0);
+    // labelDate.textContent = new Intl.DateTimeFormat('sq-AL').format(now);
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      day: 'numeric',
+      month: 'numeric',
+      // month: "2-digit",
+      year: 'numeric',
+      // weekday: 'numeric',
+    };
 
-    labelDate.textContent = `${
-      day % 10 === 0 ? day.toString().padStart(2, 0) : day
-    }/${month}/${year}, ${hour}:${min}`;
+    // Getting the locale from the user's browser
+    // const locale = navigator.language;
+    // console.log(locale);
+
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
+
+    // Day/Month/Year
+    // const day = `${now.getDate()}`.padStart(2, 0);
+    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    // const year = now.getFullYear();
+    // const hour = `${now.getHours()}`.padStart(2, 0);
+    // const min = `${now.getMinutes()}`.padStart(2, 0);
+
+    // labelDate.textContent = `${
+    //   day % 10 === 0 ? day.toString().padStart(2, 0) : day
+    // }/${month}/${year}, ${hour}:${min}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -510,6 +553,7 @@ future.setFullYear(2040);
 console.log(future);
 */
 
+/* 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Operations with dates.
 
@@ -525,3 +569,5 @@ const days1 = calcDaysPassed(
   new Date(2037, 3, 24, 10, 8)
 );
 console.log(days1);
+
+*/
