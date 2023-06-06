@@ -168,7 +168,7 @@ const calcDisplaySummary = function (acc) {
   const interest = acc.movements
     .filter(mov => mov > 0)
     .map(deposit => (deposit * acc.interestRate) / 100)
-    .filter((int, i, arr) => {
+    .filter(int => {
       // console.log(arr);
       return int >= 1;
     })
@@ -202,14 +202,44 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Implementing a countdown timer.
+const startLogoutTimer = function () {
+  const tick = () => {
+    const min = Math.trunc(time / 60)
+      .toString()
+      .padStart(2, '0');
+    const sec = time % 60;
+
+    // In each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+    // When 0, stop timer and logout user
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = `Login to get started`;
+      containerApp.style.opacity = '0';
+    }
+    // Decrease every 1s
+    time--;
+  };
+
+  // Set time to 5 minutes
+  let time = 120;
+  // Call timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+
+  return timer;
+};
+
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, timer;
 
 // FAKE ALWAYS LOGGED IN
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = '100';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Internationalizing dates (INTL).
@@ -247,7 +277,7 @@ btnLogin.addEventListener('click', function (e) {
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
     }`;
-    containerApp.style.opacity = 100;
+    containerApp.style.opacity = '100';
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
     // Adding dates to bankist app.
@@ -288,6 +318,10 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    // Timer
+    if (timer) clearInterval(timer);
+    timer = startLogoutTimer();
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -317,6 +351,10 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    // Reset timer
+    clearInterval(timer);
+    timer = startLogoutTimer();
   }
 });
 
@@ -335,6 +373,10 @@ btnLoan.addEventListener('click', function (e) {
 
       // Update UI
       updateUI(currentAccount);
+
+      // Reset timer
+      clearInterval(timer);
+      timer = startLogoutTimer();
     }, 3500);
   }
   inputLoanAmount.value = '';
@@ -357,7 +399,7 @@ btnClose.addEventListener('click', function (e) {
     accounts.splice(index, 1);
 
     // Hide UI
-    containerApp.style.opacity = 0;
+    containerApp.style.opacity = '0';
   }
 
   inputCloseUsername.value = inputClosePin.value = '';
@@ -651,6 +693,4 @@ setInterval(() => {
   const sec = new Date().getSeconds();
   console.log(`The time is: ${hour}:${min}:${sec}`);
 }, 1000);
-
-
 
