@@ -326,14 +326,16 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value); // Rounding loans
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    // Add loan date
-    currentAccount.movementsDates.push(new Date().toISOString());
+      // Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+    }, 3500);
   }
   inputLoanAmount.value = '';
 });
@@ -531,7 +533,7 @@ console.log(typeof 20n);
 console.log(20n == 20); // Loose one works => compares only values
 console.log(20n == '20'); // Type coercion
 
-// String concatination:
+// String concatenation:
 console.log(huge + 'is REALLY BIG');
 
 // Divisions
@@ -595,6 +597,7 @@ console.log(days1);
 
 */
 
+/*
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Internationalizing numbers (INTL).
 
@@ -615,3 +618,39 @@ console.log(
   navigator.language,
   new Intl.NumberFormat(navigator.language).format(num)
 );
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Timers: setTimeout and setInterval.
+
+// setTimeout timer runs just once after a defined time
+// setInterval timer keeps running basically forever, until we stop it
+
+// Set timeout
+const ingredients = ['olives', 'spinach'];
+const pizzaTimer = setTimeout(
+  (arg1, arg2) => console.log(`Here is your pizza with ${arg1} and ${arg2}.`),
+  3000,
+  ...ingredients
+);
+console.log('Waiting...');
+
+// Cancel timeout
+if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+
+// Set interval
+setInterval(() => {
+  const now = new Date();
+  console.log(now);
+}, 1000);
+
+// Real clock:
+setInterval(() => {
+  const hour = new Date().getHours();
+  const min = new Date().getMinutes();
+  const sec = new Date().getSeconds();
+  console.log(`The time is: ${hour}:${min}:${sec}`);
+}, 1000);
+
+
+
