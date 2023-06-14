@@ -170,3 +170,26 @@ btnScrollTo.addEventListener('click', e => {
     behavior: 'smooth',
   });
 });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Types of events and event handlers
+
+// If you want to read more about: https://developer.mozilla.org/en-US/docs/Web/Events
+
+const h1 = document.querySelector('h1');
+
+const alertH1 = function (e) {
+  alert('addEventListener: Great! You are reading the heading :D');
+  // h1.removeEventListener('mouseenter', alertH1);
+};
+h1.addEventListener('mouseenter', alertH1); // Mouseenter = kinda like the hover event in CSS
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+
+// Older way:
+// h1.onmouseenter = function(e) {
+//   alert('Event handler => Using onmouseenter.')
+// }
+
+// addEventListener is the better way for the fact that you can add multiple events to the same element
+// you can also remove them, etc.
+
