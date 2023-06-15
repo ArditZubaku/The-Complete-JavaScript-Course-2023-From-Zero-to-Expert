@@ -39,6 +39,7 @@ console.log(test instanceof Person);
 
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Prototypes.
 
@@ -65,7 +66,7 @@ console.log(jonas.__proto__);
 console.log(jonas.__proto__ === Person.prototype);
 console.log(Person.prototype.isPrototypeOf(jonas));
 console.log(Person.prototype.isPrototypeOf(Person));
-// So, by this we can conclude that jonas is not prototype of Person, Person is prototype of jonas.
+// So, by this we can conclude that jonas is not prototype of Person, Person is prototype of jonas.???
 
 // Setting properties on the prototype:
 Person.prototype.species = 'Humans'; // Not own property of the object
@@ -73,3 +74,36 @@ console.log(jonas.species, matilda.species);
 
 console.log(jonas.hasOwnProperty('firstName'));
 console.log(jonas.hasOwnProperty('species'));
+
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Prototypal inheritance on built-in objects.
+
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+const jonas = new Person('Jonas', 1991);
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+console.log(jonas.__proto__.__proto__.__proto__);
+// console.log(Person.prototype.constructor);
+console.dir(Person.prototype.constructor);
+
+const arr = [1, 2, 3, 4, 5, 5, 6, 7, 8]; // new Array() same as []
+console.log(arr.__proto__ === Array.prototype);
+console.log(arr.__proto__.constructor.prototype === arr.__proto__);
+
+Array.prototype.newMethodUnique = function () {
+  return [...new Set(this)];
+};
+
+console.log(arr.newMethodUnique());
+
+// const h1 = document.querySelector('h1');
+// console.dir(h1);
+
+console.log(x => x + 1);
