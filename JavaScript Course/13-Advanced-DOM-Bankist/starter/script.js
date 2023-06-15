@@ -282,3 +282,38 @@ console.log(h1.parentElement.children);
 [...h1.parentElement.children].forEach(function (element) {
   if (element !== h1) element.style.transform = 'scale(0.5)';
 });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Building a tabbed component.
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// Bad practice
+// tabs.forEach(t =>
+//   t.addEventListener('click', function () {
+//     console.log('TAB');
+//   })
+// );
+
+// Good practice - using event delegation
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  console.log(clicked);
+
+  // Guard clause
+  if (!clicked) return;
+
+  // Remove the active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  // Activate tab
+  clicked.classList.add('operations__tab--active');
+
+  // Active content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
