@@ -176,9 +176,9 @@ btnScrollTo.addEventListener('click', e => {
 
 // If you want to read more about: https://developer.mozilla.org/en-US/docs/Web/Events
 
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 
-const alertH1 = function (e) {
+const alertH1 = function () {
   alert('addEventListener: Great! You are reading the heading :D');
   // h1.removeEventListener('mouseenter', alertH1);
 };
@@ -249,4 +249,36 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// DOM Traversing.
+
+const h1 = document.querySelector('h1');
+// Going downwards: selecting direct child elements
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes);
+console.log(h1.children); // Live collection
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'white';
+
+// Going upwards: selecting direct parents
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+// Not direct parent, but still a parent
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+h1.closest('h1').style.background = 'var(--gradient-primary)'; // Returns itself, since it is the closest
+// closest = opposite of querySelector
+
+// Going sideways: selecting direct siblings
+// In JS we can select only direct siblings
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+// All the siblings
+console.log(h1.parentElement.children);
+
+[...h1.parentElement.children].forEach(function (element) {
+  if (element !== h1) element.style.transform = 'scale(0.5)';
 });
