@@ -221,5 +221,32 @@ document.querySelector('.nav').addEventListener(
     console.log('NAV', e.target);
   },
   false // Setting the option to true activates the capturing phase
-
 );
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Event delegation: Implementing page navigation.
+
+// Without event delegation: This way is wrong for the fact that it creates an event listener for each element
+// document.querySelectorAll('.nav__link').forEach(link => {
+//   link.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     // console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// With event delegation: Create an event listener for the parent and have children elements use it because of propagation
+
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the event
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  // console.log(e.target); // Where the event actually occurred
+  // Matching strategy - Hardest part to come with
+  if (e.target.classList.contains('nav__link')) {
+    // console.log('LINK');
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
