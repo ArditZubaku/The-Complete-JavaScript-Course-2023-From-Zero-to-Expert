@@ -601,6 +601,7 @@ martha2.calcAge();
 martha.calcAge();
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Inheritance between "classes": Object.Create
 
@@ -633,3 +634,51 @@ jay.init('Jay', 2010, 'Computer Science');
 console.log(jay);
 jay.introduce();
 jay.calcAge();
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Another class example.
+
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    this.movements = [];
+    this.locale = 'US-EN'; /*navigator.language;*/
+
+    console.log(`Thanks for opening an account, ${this.owner}`);
+  }
+
+  deposit(amount) {
+    this.movements.push(amount);
+  }
+
+  withdraw(amount) {
+    this.deposit(-amount);
+  }
+
+  approveLoan(amount) {
+    return true;
+  }
+
+  requestLoan(amount) {
+    if (this.approveLoan(amount)) {
+      this.deposit(amount);
+      console.log(`Loan approved`);
+    }
+  }
+}
+
+const account1 = new Account('Jonas', 'EUR', 1111);
+console.log(account1);
+
+// account1.movements.push(250);
+// account1.movements.push(-140);
+account1.deposit(250);
+account1.withdraw(140);
+account1.requestLoan(1000);
+account1.approveLoan(1000);
+
+console.log(account1);
+console.log(account1.pin);
