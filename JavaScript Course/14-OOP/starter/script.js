@@ -485,44 +485,116 @@ DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
 GOOD LUCK
 */
 
-const Car = function (make, speed) {
-  this.make = make;
-  this.speed = speed;
-};
+// const Car = function (make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
+//
+// Car.prototype.accelerate = function () {
+//   this.speed += 10;
+//   console.log(this.speed + ' km/h');
+// };
+//
+// Car.prototype.brake = function () {
+//   this.speed -= 5;
+//   console.log(this.speed + ' km/h');
+// };
+//
+// const EV = function (make, speed, battery) {
+//   Car.call(this, make, speed);
+//   this.battery = battery;
+// };
+//
+// // Linking prototypes in order to be able it to inherit.
+// EV.prototype = Object.create(Car.prototype);
+//
+// EV.prototype.chargeBattery = function (chargeTo) {
+//   this.battery = chargeTo;
+// };
+//
+// // It overrides it because it finds it earlier in the prototype chain.
+// EV.prototype.accelerate = function () {
+//   this.speed += 20;
+//   this.battery--;
+//   console.log(
+//     `${this.make} is going at ${this.speed} km/h, with a charge of ${this.battery}%. `
+//   );
+// };
+//
+// const tesla = new EV('Tesla', 120, 23);
+//
+// tesla.chargeBattery(90);
+// tesla.brake();
+// tesla.accelerate();
 
-Car.prototype.accelerate = function () {
-  this.speed += 10;
-  console.log(this.speed + ' km/h');
-};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Inheritance between "classes": ES6 classes.
 
-Car.prototype.brake = function () {
-  this.speed -= 5;
-  console.log(this.speed + ' km/h');
-};
+class Person {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
 
-const EV = function (make, speed, battery) {
-  Car.call(this, make, speed);
-  this.battery = battery;
-};
+  // These methods will be added to .prototype property => Instance methods
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
 
-// Linking prototypes in order to be able it to inherit.
-EV.prototype = Object.create(Car.prototype);
+  greet() {
+    console.log(`Hey ${this.fullName} + test`);
+  }
 
-EV.prototype.chargeBattery = function (chargeTo) {
-  this.battery = chargeTo;
-};
+  get age() {
+    return 2037 - this.birthYear;
+  }
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else throw Error('Invalid full name');
+  }
 
-// It overrides it because it finds it earlier in the prototype chain.
-EV.prototype.accelerate = function () {
-  this.speed += 20;
-  this.battery--;
-  console.log(
-    `${this.make} is going at ${this.speed} km/h, with a charge of ${this.battery}%. `
-  );
-};
+  get fullName() {
+    return this._fullName;
+  }
 
-const tesla = new EV('Tesla', 120, 23);
+  // Static method
+  static hey() {
+    console.log(`Hey there`);
+    console.log(this);
+  }
+}
 
-tesla.chargeBattery(90);
-tesla.brake();
-tesla.accelerate();
+class Student2 extends Person {}
+
+class Student extends Person {
+  constructor(fullName, birthYear, course) {
+    // Always needs to happen first!
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}.`);
+  }
+
+  // Overriding the method:
+  calcAge() {
+    // super.calcAge();
+    console.log(
+      `${this.fullName} is born in ${this.birthYear} and studies ${this.course}.`
+    );
+  }
+}
+
+const martha = new Student('Martha Jones', 2012, 'Engineering');
+const martha2 = new Student2('Martha Jones', 2012);
+
+console.log(martha);
+console.log(martha2);
+
+martha.introduce();
+
+martha2.calcAge();
+
+martha.calcAge();
