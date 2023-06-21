@@ -636,6 +636,7 @@ jay.introduce();
 jay.calcAge();
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Another class example.
 
@@ -645,7 +646,7 @@ class Account {
     this.currency = currency;
     this.pin = pin;
     this.movements = [];
-    this.locale = 'US-EN'; /*navigator.language;*/
+    this.locale = 'US-EN'; /!*navigator.language;*!/
 
     console.log(`Thanks for opening an account, ${this.owner}`);
   }
@@ -682,3 +683,50 @@ account1.approveLoan(1000);
 
 console.log(account1);
 console.log(account1.pin);
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Encapsulation: protected properties and methods.
+
+class Account {
+  // get movements() {
+  //   return this._movements;
+  // }
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    // Protected properties - Just a convention not really functionality
+    this.pin = pin;
+    this._movements = [];
+    this.locale = 'US-EN';
+    /*navigator.language;*/ console.log(
+      `Thanks for opening an account, ${this.owner}`
+    );
+  }
+
+  getMovements() {
+    return this._movements;
+  }
+  deposit(amount) {
+    this._movements.push(amount);
+  }
+
+  withdraw(amount) {
+    this.deposit(-amount);
+  }
+
+  // Protected method
+  _approveLoan(amount) {
+    return true;
+  }
+
+  requestLoan(amount) {
+    if (this._approveLoan(amount)) {
+      this.deposit(amount);
+      console.log(`Loan approved`);
+    }
+  }
+}
+
+const account1 = new Account('Jonas', 'EUR', 1111);
+console.log(account1.getMovements());
