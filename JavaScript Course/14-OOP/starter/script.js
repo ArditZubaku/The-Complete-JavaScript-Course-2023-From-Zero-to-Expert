@@ -527,6 +527,7 @@ GOOD LUCK
 // tesla.brake();
 // tesla.accelerate();
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Inheritance between "classes": ES6 classes.
 
@@ -598,3 +599,37 @@ martha.introduce();
 martha2.calcAge();
 
 martha.calcAge();
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Inheritance between "classes": Object.Create
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+console.log(steven);
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+StudentProto.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study at ${this.course}`);
+};
+
+const jay = Object.create(StudentProto);
+jay.init('Jay', 2010, 'Computer Science');
+console.log(jay);
+jay.introduce();
+jay.calcAge();
