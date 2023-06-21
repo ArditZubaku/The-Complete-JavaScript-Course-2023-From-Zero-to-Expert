@@ -127,6 +127,7 @@ DATA CAR 2: 'Mercedes' going at 95 km/h
 GOOD LUCK 😀
 */
 
+/*
 const Car = function (make, speed) {
   this.make = make;
   this.speed = speed;
@@ -152,3 +153,45 @@ bmw.brake();
 console.log(mercedes.speed);
 mercedes.accelerate();
 mercedes.brake();
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ES6 classes.
+
+// Class expression
+const PersonClass1 = class {
+  // Classes are just special types of functions...
+};
+
+// Class declaration
+class PersonClass2 {
+  // Has to be called "constructor"
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  // All the methods will be on the prototype not the object itself
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName} + test`);
+  }
+}
+const jessica = new PersonClass2('Jessica', 1996);
+console.log(jessica);
+jessica.calcAge();
+console.log(jessica.__proto__ === PersonClass2.prototype);
+jessica.greet();
+
+// Can still add methods to the prototype
+PersonClass2.prototype.greet = function () {
+  console.log(`Hey ${this.firstName}`);
+};
+jessica.greet();
+
+// 1. Classes are not hoisted (even with function declarations)
+// 2. Classes are first-class citizens (can into functions and return them from functions)
+// 3. Classes are executed in strict mode
