@@ -383,37 +383,83 @@ DATA CAR 1: 'Ford' going at 120 km/h
 GOOD LUCK
 */
 
-class Car {
-  constructor(make, speed) {
-    this.make = make;
-    this.speed = speed;
-  }
+// class Car {
+//   constructor(make, speed) {
+//     this.make = make;
+//     this.speed = speed;
+//   }
+//
+//   accelerate() {
+//     this.speed += 10;
+//     console.log(`${this.speed} km/h`);
+//   }
+//   brake() {
+//     this.speed -= 5;
+//     console.log(`${this.speed} km/h`);
+//   }
+//
+//   get speedUS() {
+//     console.log(`${this.speed / 1.6} mi/h`);
+//   }
+//
+//   set speedUS(speed) {
+//     this.speed = speed * 1.6;
+//     console.log(`${this.speed} km/h`);
+//   }
+// }
+//
+// const ford = new Car('Ford', 120);
+// ford.accelerate();
+// console.log(ford.speed);
+// ford.speedUS = 200;
+// console.log(ford.speed);
+// ford.speedUS;
+// ford.brake();
+// console.log(ford.speed);
+// ford.speedUS;
 
-  accelerate() {
-    this.speed += 10;
-    console.log(`${this.speed} km/h`);
-  }
-  brake() {
-    this.speed -= 5;
-    console.log(`${this.speed} km/h`);
-  }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Inheritance between "classes": constructor functions.
 
-  get speedUS() {
-    console.log(`${this.speed / 1.6} mi/h`);
-  }
+// Implementing inheritance using constructor functions
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
 
-  set speedUS(speed) {
-    this.speed = speed * 1.6;
-    console.log(`${this.speed} km/h`);
-  }
-}
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
 
-const ford = new Car('Ford', 120);
-ford.accelerate();
-console.log(ford.speed);
-ford.speedUS = 200;
-console.log(ford.speed);
-ford.speedUS;
-ford.brake();
-console.log(ford.speed);
-ford.speedUS;
+// Same parameters as the parent + more
+const Student = function (firstName, birthYear, course) {
+  // this.firstName = firstName;
+  // this.birthYear = birthYear;
+  // In a regular function call the "this" keyword is set to undefined
+  // Person(firstName, birthYear);
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+//Linking prototypes
+// Has to be positioned here, before we start adding methods to the prototype
+Student.prototype = Object.create(Person.prototype);
+
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+console.log(mike);
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+console.log(mike instanceof Student);
+console.log(mike instanceof Person);
+console.log(mike instanceof Object);
+
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor);
