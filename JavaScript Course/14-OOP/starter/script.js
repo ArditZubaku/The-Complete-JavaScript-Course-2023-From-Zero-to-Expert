@@ -155,6 +155,7 @@ mercedes.accelerate();
 mercedes.brake();
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ES6 classes.
 
@@ -195,3 +196,72 @@ jessica.greet();
 // 1. Classes are not hoisted (even with function declarations)
 // 2. Classes are first-class citizens (can into functions and return them from functions)
 // 3. Classes are executed in strict mode
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Getters and setters.
+
+const account = {
+  owner: 'Jonas',
+  movements: [200, 530, 120, 300],
+
+  // Getter
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  // Every setter needs to have at least one parameter
+  set latest(movement) {
+    this.movements.push(movement);
+  },
+};
+
+// When we call it, we call it as if it was a property, we don't invoke the method
+console.log(account.latest);
+
+// When we use setter, we actually set it like we would set any other property
+account.latest = 50;
+console.log(account.movements);
+
+// Has to be called "constructor"
+class PersonClass {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // All the methods will be on the prototype not the object itself
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.fullName} + test`);
+  }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  // When setting a property that already exists
+  /*
+  In JavaScript, when you define a setter method with the same name as a property,
+  the setter method is called instead of the constructor when you try to create a new object. 
+  */
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else throw Error('Invalid full name');
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+}
+
+// const walter = new PersonClass('Walter', 1965);
+const walter2 = new PersonClass('Walter White', 1965);
+console.log(walter2);
+
+const jessica = new PersonClass('Jessica Davis', 1996);
+console.log(jessica.age);
