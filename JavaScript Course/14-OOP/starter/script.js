@@ -198,6 +198,7 @@ jessica.greet();
 // 3. Classes are executed in strict mode
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Getters and setters.
 
@@ -244,10 +245,10 @@ class PersonClass {
   }
 
   // When setting a property that already exists
-  /*
+  /!*
   In JavaScript, when you define a setter method with the same name as a property,
-  the setter method is called instead of the constructor when you try to create a new object. 
-  */
+  the setter method is called instead of the constructor when you try to create a new object.
+  *!/
   set fullName(name) {
     console.log(name);
     if (name.includes(' ')) this._fullName = name;
@@ -265,3 +266,57 @@ console.log(walter2);
 
 const jessica = new PersonClass('Jessica Davis', 1996);
 console.log(jessica.age);
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Static methods.
+
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+// Adding a static method
+Person.hey = function () {
+  console.log(this);
+  console.log(`Hey there`);
+};
+// We just do not add it into the prototype, we add it only to the constructor
+Person.hey();
+
+class PersonClass {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // These methods will be added to .prototype property => Instance methods
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.fullName} + test`);
+  }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else throw Error('Invalid full name');
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  // Static method
+  static hey() {
+    console.log(`Hey there`);
+    console.log(this);
+  }
+}
+
+PersonClass.hey();
