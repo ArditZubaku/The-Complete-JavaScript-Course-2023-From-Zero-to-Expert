@@ -40,15 +40,44 @@ if (navigator.geolocation)
 
       const coords = [latitude, longitude];
       const map = L.map('map').setView(coords, 20); // 20 = zoom level
-      L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      //   attribution:
+      //     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      // }).addTo(map);
+
+      L.tileLayer('https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
         attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors - Tiles courtesy of <a href="https://www.hotosm.org/">Humanitarian OpenStreetMap Team</a>',
+        maxZoom: 19,
       }).addTo(map);
 
       L.marker(coords)
         .addTo(map)
         .bindPopup('A pretty CSS popup.<br> Easily customizable.')
         .openPopup();
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Displaying a map marker.
+
+      map.on('click', function (mapEvent) {
+        console.log(mapEvent);
+
+        const { lat, lng } = mapEvent.latlng;
+
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(
+            L.popup({
+              maxWidth: 250,
+              minWidth: 100,
+              autoClose: false,
+              closeOnClick: false,
+              className: 'running-popup',
+            })
+          )
+          .setPopupContent('<b>Test</b>')
+          .openPopup();
+      });
     },
     () => {
       alert("Couldn't get current position");
