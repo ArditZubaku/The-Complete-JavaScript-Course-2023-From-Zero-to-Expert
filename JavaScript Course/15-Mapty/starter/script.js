@@ -23,87 +23,102 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
-let map, mapEvent;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Using the Geolocation API.
+// Refactoring for Project Architecture.
 
-if (navigator.geolocation)
-  navigator.geolocation.getCurrentPosition(
-    position => {
-      const { latitude, longitude } = position.coords;
-      // console.log(latitude, longitude);
-      console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
+class App {
+  #map;
+  #mapEvent;
+  constructor() {
+    this._getPosition();
 
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // Displaying a map using Leaflet library.
+    form.addEventListener('submit', this._newWorkout.bind(this));
 
-      // 'map' is the id of a html element that will hold/display the map
+    inputType.addEventListener('change', this._toggleElevationField);
+  }
 
-      const coords = [latitude, longitude];
-      map = L.map('map').setView(coords, 20); // 20 = zoom level
-      // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      //   attribution:
-      //     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      // }).addTo(map);
+  _getPosition() {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Using the Geolocation API.
 
-      L.tileLayer('https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors - Tiles courtesy of <a href="https://www.hotosm.org/">Humanitarian OpenStreetMap Team</a>',
-        maxZoom: 19,
-      }).addTo(map);
-
-      L.marker(coords)
-        .addTo(map)
-        .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-        .openPopup();
-
-      // Handling clicks on map
-      map.on('click', function (map_Event) {
-        mapEvent = map_Event;
-        form.classList.remove('hidden');
-        inputDistance.focus();
+    if (navigator.geolocation)
+      navigator.geolocation.getCurrentPosition(this._loadMap.bind(this), () => {
+        alert("Couldn't get current position");
       });
-    },
-    () => {
-      alert("Couldn't get current position");
-    }
-  );
+  }
 
-form.addEventListener('submit', e => {
-  e.preventDefault();
+  _loadMap(position) {
+    const { latitude, longitude } = position.coords;
+    // console.log(latitude, longitude);
+    console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
 
-  // Clear input fields
-  inputDistance.value =
-    inputDuration.value =
-    inputElevation.value =
-    inputCadence.value =
-      '';
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Displaying a map using Leaflet library.
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // Displaying a map marker.
-  // Display marker
-  const { lat, lng } = mapEvent.latlng;
+    // 'map' is the id of a html element that will hold/display the map
 
-  L.marker([lat, lng])
-    .addTo(map)
-    .bindPopup(
-      L.popup({
-        maxWidth: 250,
-        minWidth: 100,
-        autoClose: false,
-        closeOnClick: false,
-        className: 'running-popup',
-      })
-    )
-    .setPopupContent('<b>Test</b>')
-    .openPopup();
-});
+    const coords = [latitude, longitude];
+    this.#map = L.map('map').setView(coords, 20); // 20 = zoom level
+    // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //   attribution:
+    //     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    // }).addTo(map);
 
-inputType.addEventListener('change', evt => {
-  evt.preventDefault();
-  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-});
+    L.tileLayer('https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors - Tiles courtesy of ' +
+        '<a href="https://www.hotosm.org/">Humanitarian OpenStreetMap Team</a>',
+      maxZoom: 19,
+    }).addTo(this.#map);
+
+    // Handling clicks on map
+    this.#map.on('click', this._showForm.bind(this));
+  }
+
+  _showForm(map_Event) {
+    this.#mapEvent = map_Event;
+    form.classList.remove('hidden');
+    inputDistance.focus();
+  }
+
+  _toggleElevationField(evt) {
+    evt.preventDefault();
+    inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+    inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+  }
+
+  _newWorkout(e) {
+    e.preventDefault();
+
+    // Clear input fields
+    inputDistance.value =
+      inputDuration.value =
+      inputElevation.value =
+      inputCadence.value =
+        '';
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Displaying a map marker.
+    // Display marker
+    const { lat, lng } = this.#mapEvent.latlng;
+
+    L.marker([lat, lng])
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: 'running-popup',
+        })
+      )
+      .setPopupContent('<b>Test</b>')
+      .openPopup();
+  }
+}
+
+const app = new App();
+// app._getPosition();
 
 console.log(firstName);
