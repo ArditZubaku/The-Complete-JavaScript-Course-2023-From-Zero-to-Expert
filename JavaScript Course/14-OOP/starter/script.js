@@ -733,6 +733,7 @@ const account1 = new Account('Jonas', 'EUR', 1111);
 console.log(account1.getMovements());
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Encapsulation: Private class fields and methods.
 
@@ -755,7 +756,8 @@ class Account {
     // Protected properties - Just a convention not really functionality
     this.#pin = pin;
     // this.locale = 'US-EN';
-    /*navigator.language;*/ // this._movements = [];
+    //navigator.language;
+    // this._movements = [];
     console.log(`Thanks for opening an account, ${this.owner}`);
   }
 
@@ -813,3 +815,83 @@ account1
   .requestLoan(25000)
   .withdraw(4000)
   .getMovements();
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Coding Challenge #24.
+
+// Coding Challenge #4
+/*
+1. Re-create challenge #3 (#2 ?), but this time using ES6 classes: create an 'EVCl' child class of the 'CarCl' class
+2. Make the 'charge' property private;
+3. Implement the ability to chain the 'accelerate' and 'chargeBattery' methods of this class,
+and also update the 'brake' method in the 'CarCl' class. Then experiment with chaining!
+
+DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
+
+GOOD LUCK
+*/
+
+class Car {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.speed} km/h`);
+    // Works even if the parent class doesn't return "this"
+    return this;
+  }
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.speed} km/h`);
+    return this;
+  }
+
+  get speedUS() {
+    console.log(`${this.speed / 1.6} mi/h`);
+  }
+
+  set speedUS(speed) {
+    this.speed = speed * 1.6;
+    console.log(`${this.speed} km/h`);
+  }
+}
+
+class EV extends Car {
+  #battery;
+  constructor(make, speed, battery) {
+    super(make, speed);
+    this.#battery = battery;
+  }
+
+  chargeBattery(chargeTo) {
+    this.#battery = chargeTo;
+    return this;
+  }
+
+  accelerate() {
+    this.speed += 20;
+    this.#battery--;
+    console.log(
+      `${this.make} is going at ${this.speed} km/h, with a charge of ${
+        this.#battery
+      }%. `
+    );
+    return this;
+  }
+}
+
+const rivian = new EV('Rivian', 120, 23);
+rivian
+  .chargeBattery(90)
+  .brake()
+  .accelerate()
+  .brake()
+  .accelerate()
+  .accelerate()
+  .accelerate()
+  .brake()
+  .chargeBattery(100);
