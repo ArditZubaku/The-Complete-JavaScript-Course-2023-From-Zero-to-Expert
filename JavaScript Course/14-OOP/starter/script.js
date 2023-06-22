@@ -755,8 +755,7 @@ class Account {
     // Protected properties - Just a convention not really functionality
     this.#pin = pin;
     // this.locale = 'US-EN';
-    /*navigator.language;*/
-    // this._movements = [];
+    /*navigator.language;*/ // this._movements = [];
     console.log(`Thanks for opening an account, ${this.owner}`);
   }
 
@@ -766,10 +765,14 @@ class Account {
   }
   deposit(amount) {
     this.#movements.push(amount);
+    // Just like this it returns undefined, void methods return undefined
+    // Just return the object itself
+    return this;
   }
 
   withdraw(amount) {
     this.deposit(-amount);
+    return this;
   }
 
   requestLoan(amount) {
@@ -777,6 +780,7 @@ class Account {
       this.deposit(amount);
       console.log(`Loan approved`);
     }
+    return this;
   }
 
   // 4) Private methods
@@ -786,6 +790,7 @@ class Account {
 
   static helper() {
     console.log('Helper');
+    return this;
   }
 }
 
@@ -797,3 +802,14 @@ account1.requestLoan(100);
 console.log(account1.getMovements());
 
 Account.helper();
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Chaining methods.
+
+account1
+  .deposit(300)
+  .deposit(500)
+  .withdraw(35)
+  .requestLoan(25000)
+  .withdraw(4000)
+  .getMovements();
