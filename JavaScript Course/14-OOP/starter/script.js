@@ -685,6 +685,7 @@ console.log(account1);
 console.log(account1.pin);
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Encapsulation: protected properties and methods.
 
@@ -699,7 +700,7 @@ class Account {
     this.pin = pin;
     this._movements = [];
     this.locale = 'US-EN';
-    /*navigator.language;*/ console.log(
+    /!*navigator.language;*!/ console.log(
       `Thanks for opening an account, ${this.owner}`
     );
   }
@@ -730,3 +731,69 @@ class Account {
 
 const account1 = new Account('Jonas', 'EUR', 1111);
 console.log(account1.getMovements());
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Encapsulation: Private class fields and methods.
+
+// 1) Public fields
+// 2) Private fields
+// 3) Public methods
+// 4) Private methods
+// there is also the static version of each
+
+class Account {
+  // 1) Public fields (will be added on instances)
+  locale = 'US-EN';
+
+  // 2) Private fields (on instances)
+  #movements = [];
+  #pin; // Gotta declare the field first
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    // Protected properties - Just a convention not really functionality
+    this.#pin = pin;
+    // this.locale = 'US-EN';
+    /*navigator.language;*/
+    // this._movements = [];
+    console.log(`Thanks for opening an account, ${this.owner}`);
+  }
+
+  // 3) Public methods
+  getMovements() {
+    return this.#movements;
+  }
+  deposit(amount) {
+    this.#movements.push(amount);
+  }
+
+  withdraw(amount) {
+    this.deposit(-amount);
+  }
+
+  requestLoan(amount) {
+    if (this.#approveLoan(amount)) {
+      this.deposit(amount);
+      console.log(`Loan approved`);
+    }
+  }
+
+  // 4) Private methods
+  #approveLoan(amount) {
+    return true;
+  }
+
+  static helper() {
+    console.log('Helper');
+  }
+}
+
+const account1 = new Account('Jonas', 'EUR', 1111);
+console.log(account1.getMovements());
+// console.log(account1.#movements); // Error
+// console.log(account1.#approveLoan(100)) // Error
+account1.requestLoan(100);
+console.log(account1.getMovements());
+
+Account.helper();
