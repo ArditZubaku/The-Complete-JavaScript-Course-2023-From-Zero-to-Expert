@@ -18,8 +18,13 @@ class App {
   #zoomLevel = 13;
 
   constructor() {
+    // Get user's position
     this._getPosition();
 
+    // Get data from local storage
+    this._getLocalStorage();
+
+    // Attach event handlers
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
@@ -37,8 +42,6 @@ class App {
 
   _loadMap(position) {
     const { latitude, longitude } = position.coords;
-    // console.log(latitude, longitude);
-    console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Displaying a map using Leaflet library.
@@ -61,6 +64,8 @@ class App {
 
     // Handling clicks on map
     this.#map.on('click', this._showForm.bind(this));
+
+    this.#workouts.forEach(workout => this._renderWorkoutMarker(workout));
   }
 
   _showForm(map_Event) {
@@ -131,7 +136,6 @@ class App {
     }
     // Add new object to workout array
     this.#workouts.push(workout);
-    console.log(workout);
 
     // Render workout on map as marker
     this._renderWorkoutMarker(workout);
@@ -141,6 +145,9 @@ class App {
 
     // Hide form + clear input fields
     this._hideForm();
+
+    // Set local storage to all workouts
+    this._setLocalStorage();
   }
 
   _renderWorkoutMarker(workout) {
@@ -222,7 +229,6 @@ class App {
 
   _moveToPopup(e) {
     const workoutElement = e.target.closest('.workouts');
-    console.log(workoutElement);
 
     if (!workoutElement) return;
 
@@ -237,12 +243,29 @@ class App {
       },
     });
 
-    workout.click();
+    // workout.click();
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+
+    if (!data) return;
+
+    this.#workouts = data;
+    this.#workouts.forEach(workout => this._renderWorkout(workout));
+  }
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
   }
 }
 
 const app = new App();
-// app._getPosition();
 
 console.log(firstName);
 
@@ -321,7 +344,3 @@ class Cycling extends Workout {
 
 const run1 = new Running([39, -12], 5.2, 34, 178);
 const cycle1 = new Cycling([39, -12], 27, 95, 523);
-console.log(run1, cycle1);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Creating a new workout.
