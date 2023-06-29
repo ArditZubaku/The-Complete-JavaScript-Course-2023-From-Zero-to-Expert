@@ -10,7 +10,9 @@ const countriesContainer = document.querySelector('.countries');
 // }, 3000);
 // console.log('Outside')
 
-// Old school way
+const renderError = message => {
+  countriesContainer.insertAdjacentText('beforeend', message);
+};
 
 const renderCountry = function (data, className = '') {
   const html = `
@@ -35,7 +37,6 @@ const renderCountry = function (data, className = '') {
   `;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = '1';
 };
 
 /*const getCountryAndNeighbour = function (country) {
@@ -112,22 +113,36 @@ console.log(request);
 // };
 const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
+    .then(
+      response => response.json()
+      // err => alert(err)
+    )
     .then(data => {
       renderCountry(data[0]);
       const neighbour = data[0]?.borders[0];
       return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
     })
-    .then(response => response.json())
+    .then(
+      response => response.json()
+      // A promise in which an error happened is a rejected promise
+      // First way: passing a 2nd callback
+      // err => alert(err)
+    )
     .then(data => {
       renderCountry(data[0], 'neighbour');
-      //
-      //   const neighbour = data[0]?.borders[0];
-      //   return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
-      // })
-      // .then(response => response.json())
-      // .then(data => renderCountry(data[0], 'neighbour'));
+    })
+    // Handles all the errors, no matter where they happen in the chain
+    .catch(err => {
+      console.error(err);
+      renderError(`Something went wrong: ${err.message}.Try again!`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = '1';
     });
 };
 
-getCountryData('kosovo');
+btn.addEventListener('click', event => {
+  getCountryData('kosovo');
+});
+
+getCountryData('asdasd')
