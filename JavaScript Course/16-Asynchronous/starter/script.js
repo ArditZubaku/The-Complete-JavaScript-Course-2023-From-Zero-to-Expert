@@ -101,3 +101,24 @@ setTimeout(() => {
 // Modern way:
 const request = fetch(`https://restcountries.com/v3.1/name/kosovo`);
 console.log(request);
+
+// const getCountryData = function (country) {
+//   fetch(`https://restcountries.com/v3.1/name/${country}`)
+//     .then(response => {
+//       console.log(response);
+//       // json() method is a method available in all the resolved values
+//       // returns a new promise
+//       return response.json();
+//     })
+//     .then(data => {
+//       console.log(data[0]);
+//       renderCountry(data[0]);
+//     });
+// };
+const getCountryData = function (country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(response => response.json())
+    .then(data => renderCountry(data[0]));
+};
+
+getCountryData('kosovo');
