@@ -1,6 +1,6 @@
 'use strict';
 
-const btn = document.querySelector('.btn-country');
+const btn2 = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
@@ -37,6 +37,14 @@ const renderCountry = function (data, className = '') {
   `;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
+};
+
+const getJSON = function (url, errMsg = 'Something went wrong') {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(`${errMsg} (${response.status})`);
+
+    return response.json();
+  });
 };
 
 /*const getCountryAndNeighbour = function (country) {
@@ -112,22 +120,21 @@ console.log(request);
 //     });
 // };
 const getCountryData = function (country) {
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(
-      response => response.json()
-      // err => alert(err)
-    )
+  getJSON(
+    `https://restcountries.com/v3.1/name/${country}`,
+    `Country not found:`
+  )
     .then(data => {
       renderCountry(data[0]);
-      const neighbour = data[0]?.borders[0];
-      return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+      const neighbour = data[0].borders[0];
+
+      if (!neighbour) throw new Error(`No neighbour found!`);
+
+      return getJSON(
+        `https://restcountries.com/v3.1/alpha/${neighbour}`,
+        `Country not found:`
+      );
     })
-    .then(
-      response => response.json()
-      // A promise in which an error happened is a rejected promise
-      // First way: passing a 2nd callback
-      // err => alert(err)
-    )
     .then(data => {
       renderCountry(data[0], 'neighbour');
     })
@@ -140,9 +147,8 @@ const getCountryData = function (country) {
       countriesContainer.style.opacity = '1';
     });
 };
-
-btn.addEventListener('click', event => {
+btn2.addEventListener('click', function () {
   getCountryData('kosovo');
 });
 
-getCountryData('asdasd')
+getCountryData('asd-asd');
