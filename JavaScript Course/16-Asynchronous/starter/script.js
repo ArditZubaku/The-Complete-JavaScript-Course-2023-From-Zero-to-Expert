@@ -43,7 +43,7 @@ const renderCountry = function (data, className = '') {
   countriesContainer.style.opacity = '1';
 };
 
-const getCountryAndNeighbour = function (country) {
+/*const getCountryAndNeighbour = function (country) {
   // AJAX call country 1
   const request = new XMLHttpRequest();
   request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
@@ -91,4 +91,13 @@ setTimeout(() => {
       }, 1000);
     }, 1000);
   }, 1000);
-}, 1000);
+}, 1000);*/
+
+// Older way:
+// const request = new XMLHttpRequest();
+// request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+// request.send();
+
+// Modern way:
+const request = fetch(`https://restcountries.com/v3.1/name/kosovo`);
+console.log(request);
