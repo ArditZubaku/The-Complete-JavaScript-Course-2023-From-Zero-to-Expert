@@ -224,6 +224,7 @@ const whereAmI = function (lat, lng) {
 // whereAmI(19.037, 72.873);
 // whereAmI(-33.933, 18.474);
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // The Event Loop in practice.
 console.log('Test start');
@@ -239,3 +240,76 @@ console.log('Test end');
 // The resolved promise will be put in the microtask queue.
 // Even if the microtask takes too long, the callbacks in the callback queue will be delayed until itcompletes
 // The timeout will be put in the callback queue.
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Building a simple promise.
+const lotteryPromise = new Promise(function (resolve, reject) {
+  console.log('Lottery draw is happening!!!');
+  setTimeout(function () {
+    if (Math.random() >= 0.5) {
+      // Calling resolve function, marks the promise as fulfilled.
+      resolve(
+        'Whatever we pass in here, will be the result of the promise that will be available in the .then()'
+      );
+    } else {
+      reject(new Error('The error message that will go into the .catch()'));
+    }
+  }, 2000);
+});
+
+lotteryPromise
+  .then(res => {
+    console.log(res);
+  })
+  .catch(err => {
+    console.error(err);
+  });
+
+// Promisifying setTimeout
+const wait = seconds =>
+  new Promise(resolve => setTimeout(resolve, seconds * 1000));
+// wait(2)
+//   .then(() => {
+//     console.log(
+//       'Here we can run any code that we wanted to be executed after 2 seconds'
+//     );
+//     return wait(1);
+//   })
+//   .then(() => console.log('Extra 1 second'));
+
+// setTimeout(() => {
+//     console.log('1 second passed');
+//     setTimeout(() => {
+//         console.log('2 seconds passed');
+//         setTimeout(() => {
+//             console.log('3 seconds passed');
+//             setTimeout(() => {
+//                 console.log('4 seconds passed');
+//             }, 1000);
+//         }, 1000);
+//     }, 1000);
+// }, 1000);
+
+// Doing the same thing but with the promisified version
+wait(1)
+  .then(() => {
+    console.log('1 second passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('2 seconds passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('3 second passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('4 seconds passed');
+  });
+
+Promise.resolve('Resolved value').then(x => console.log(x));
+Promise.reject('Rejected value')
+  .then(x => console.log(x))
+  .catch(x => console.error(x));
