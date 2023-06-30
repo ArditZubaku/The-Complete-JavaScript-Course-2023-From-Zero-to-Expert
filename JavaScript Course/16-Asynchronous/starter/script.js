@@ -220,6 +220,22 @@ const whereAmI = function (lat, lng) {
     .finally(() => (countriesContainer.style.opacity = '1'));
 };
 
-whereAmI(52.508, 13.381);
+// whereAmI(52.508, 13.381);
 // whereAmI(19.037, 72.873);
 // whereAmI(-33.933, 18.474);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// The Event Loop in practice.
+console.log('Test start');
+setTimeout(() => console.log('0 sec timer'), 0);
+Promise.resolve('Resolved promise 1').then(res => console.log(res));
+Promise.resolve('Resolved promise 2').then(res => {
+  for (let i = 0; i < 1000000000; i++) {} // Taking longer
+  console.log(res);
+});
+console.log('Test end');
+
+// The code outside any callback will run first.
+// The resolved promise will be put in the microtask queue.
+// Even if the microtask takes too long, the callbacks in the callback queue will be delayed until itcompletes
+// The timeout will be put in the callback queue.
