@@ -546,6 +546,7 @@ const whereAmI = async () => {
 whereAmI();
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Returning values from async functions.
 
@@ -596,7 +597,7 @@ const whereAmI = async () => {
 //     console.log('Finish');
 //   });
 
-/*
+/!*
 In JavaScript, IIFEs (Immediately Invoked Function Expressions) are a way to create a self-executing function.
 They are commonly used to create a new scope and avoid polluting the global namespace.
 An IIFE is defined as a function expression that is immediately invoked after it is defined.
@@ -608,7 +609,7 @@ Here's an example of an IIFE:
   // code to be executed immediately
 })();
 
-*/
+*!/
 
 console.log('Start');
 (async function () {
@@ -620,3 +621,35 @@ console.log('Start');
   }
   console.log('Finish');
 })();
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Running promises in parallel.
+
+const get3Countries = async (country_1, country_2, country_3) => {
+  try {
+    // const [data_1] = await getJSON(
+    //   `https://restcountries.com/v3.1/name/${country_1}`
+    // );
+    // const [data_2] = await getJSON(
+    //   `https://restcountries.com/v3.1/name/${country_2}`
+    // );
+    // const [data_3] = await getJSON(
+    //   `https://restcountries.com/v3.1/name/${country_3}`
+    // );
+
+    const data = await Promise.all([
+      getJSON(`https://restcountries.com/v3.1/name/${country_1}`),
+      getJSON(`https://restcountries.com/v3.1/name/${country_2}`),
+      getJSON(`https://restcountries.com/v3.1/name/${country_3}`),
+    ]);
+    // console.log([data_1.capital[0], data_2.capital[0], data_3.capital[0]]);
+
+    console.log(data.map(city => city[0].capital[0]));
+  } catch (e) {
+    // If one promise rejects, everything rejects
+    console.error(e);
+  }
+};
+
+get3Countries('kosovo', 'albania', 'switzerland');
