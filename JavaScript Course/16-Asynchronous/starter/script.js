@@ -453,6 +453,7 @@ createImage('img/img-1.jpg')
   });
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Consuming promises with async/await.
 
@@ -493,3 +494,52 @@ const whereAmI = async () => {
 };
 whereAmI();
 console.log('Executed FIRST');
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Error handling with try...catch.
+
+// try {
+//   let y = 1;
+//   const x = 2;
+//   x = 3;
+// } catch (e) {
+//   alert(e.message);
+// }
+
+const getPosition = () => {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = async () => {
+  try {
+    const position = await getPosition();
+    const { latitude: lat, longitude: lng } = position.coords;
+
+    // Reverse geocoding
+    const resGeo = await fetch(
+      `https://geocode.xyz/${lat},${lng}?geoit=json&auth=452597663231142705335x118628`
+    );
+    if (!resGeo.ok) {
+      throw new Error('Error fetching geolocation');
+    }
+    const geoData = await resGeo.json();
+    console.log(geoData);
+
+    const response = await fetch(
+      `https://restcountries.com/v3.1/name/${geoData.country}`
+    );
+    if (!response.ok) {
+      throw new Error('Error fetching country');
+    }
+    const data = await response.json();
+    console.log(data);
+    renderCountry(data[0]);
+  } catch (e) {
+    console.error(e.message);
+    renderError(`Something went wrong! ${e.message}`);
+  }
+};
+whereAmI();
