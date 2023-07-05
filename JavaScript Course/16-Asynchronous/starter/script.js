@@ -390,21 +390,29 @@ btn2.addEventListener('click', whereAmI);
 /*
 Build the image loading functionality that I just showed you on the screen.
 
-Tasks are not super-descriptive this time, so that you can figure out some stuff on your own. Pretend you're working on your own 😉
+Tasks are not super-descriptive this time, so that you can figure out some stuff on your own. 
+Pretend you're working on your own 
 
 PART 1
-1. Create a function 'createImage' which receives imgPath as an input. This function returns a promise which creates a new image (use document.createElement('img')) and sets the .src attribute to the provided image path. When the image is done loading, append it to the DOM element with the 'images' class, and resolve the promise. The fulfilled value should be the image element itself. In case there is an error loading the image ('error' event), reject the promise.
+1. Create a function 'createImage' which receives imgPath as an input. 
+This function returns a promise which creates a new image (use document.createElement('img')) 
+and sets the .src attribute to the provided image path. When the image is done loading, append it to the DOM element 
+with the 'images' class, and resolve the promise. The fulfilled value should be the image element itself. 
+In case there is an error loading the image ('error' event), reject the promise.
 
 If this part is too tricky for you, just watch the first part of the solution.
 
 PART 2
 2. Consume the promise using .then and also add an error handler;
 3. After the image has loaded, pause execution for 2 seconds using the wait function we created earlier;
-4. After the 2 seconds have passed, hide the current image (set display to 'none'), and load a second image (HINT: Use the image element returned by the createImage promise to hide the current image. You will need a global variable for that 😉);
+4. After the 2 seconds have passed, hide the current image (set display to 'none'), and load a second image 
+(HINT: Use the image element returned by the createImage promise to hide the current image. 
+You will need a global variable for that);
 5. After the second image has loaded, pause execution for 2 seconds again;
 6. After the 2 seconds have passed, hide the current image.
 
-TEST DATA: Images in the img folder. Test the error handler by passing a wrong image path. Set the network speed to 'Fast 3G' in the dev tools Network tab, otherwise images load too fast.
+TEST DATA: Images in the img folder. Test the error handler by passing a wrong image path. 
+Set the network speed to 'Fast 3G' in the dev tools Network tab, otherwise images load too fast.
 
 GOOD LUCK
 */
@@ -623,6 +631,7 @@ console.log('Start');
 })();
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Running promises in parallel.
 
@@ -653,3 +662,48 @@ const get3Countries = async (country_1, country_2, country_3) => {
 };
 
 get3Countries('kosovo', 'albania', 'switzerland');
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Other promise combinators: race, allSettled, and any.
+
+// Promise.race - basically whichever "wins" first gets executed (resolved or rejected doesn't matter).
+// (async () => {
+//   const res = await Promise.race([
+//     getJSON(`https://restcountries.com/v3.1/name/italy`),
+//     getJSON(`https://restcountries.com/v3.1/name/egypt`),
+//     getJSON(`https://restcountries.com/v3.1/name/korea`),
+//   ]);
+//
+//   console.log(res[0]);
+// })();
+
+const timeout = s => {
+  return new Promise((_, reject) => {
+    setTimeout(() => {
+      reject(new Error(`Request took too long!`));
+    }, s * 1000);
+  });
+};
+
+Promise.race([getJSON(`https://restcountries.com/v3.1/name/italy`), timeout(1)])
+  .then(res => console.log('HERE:', res[0]))
+  .catch(err => console.log(err));
+
+// Promise.allSettled - returns the results of all the settled promises (resolved or rejected), doesn't short-circuit.
+Promise.allSettled([Promise.resolve('Success 1'), Promise.reject('Failed 1')])
+  .then(res => {
+    console.log(...res);
+  })
+  .catch(err => {
+    console.error(err);
+  });
+
+// Promise.any - returns the first resolved promise, rejected promises are ignored
+Promise.any([Promise.resolve('Success 2'), Promise.reject('Failed 2')])
+  .then(res => {
+    console.log(res);
+  })
+  .catch(err => {
+    console.error(err);
+  });
