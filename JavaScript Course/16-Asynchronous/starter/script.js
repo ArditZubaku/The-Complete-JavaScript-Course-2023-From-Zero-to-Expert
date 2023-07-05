@@ -192,33 +192,33 @@ TEST COORDINATES 2: -33.933, 18.474
 GOOD LUCK
 */
 
-const whereAmI = function (lat, lng) {
-  fetch(
-    `https://geocode.xyz/${lat},${lng}?geoit=json&auth=452597663231142705335x118628`
-  )
-    .then(response => {
-      if (!response.ok)
-        throw new Error(`Error has happened: ${response.status}`);
-
-      console.log(response);
-
-      return response.json();
-    })
-    .then(data => {
-      //   console.log(data)
-      console.log(`You are in ${data.city}, ${data.country}`);
-
-      return fetch(`https://restcountries.com/v3.1/name/${data.country}`);
-    })
-    .then(response => {
-      if (!response.ok)
-        throw new Error(`Country not found: ${response.status}`);
-      return response.json();
-    })
-    .then(data => renderCountry(data[0]))
-    .catch(error => console.error(error.message))
-    .finally(() => (countriesContainer.style.opacity = '1'));
-};
+// const whereAmI = function (lat, lng) {
+//   fetch(
+//     `https://geocode.xyz/${lat},${lng}?geoit=json&auth=452597663231142705335x118628`
+//   )
+//     .then(response => {
+//       if (!response.ok)
+//         throw new Error(`Error has happened: ${response.status}`);
+//
+//       console.log(response);
+//
+//       return response.json();
+//     })
+//     .then(data => {
+//       //   console.log(data)
+//       console.log(`You are in ${data.city}, ${data.country}`);
+//
+//       return fetch(`https://restcountries.com/v3.1/name/${data.country}`);
+//     })
+//     .then(response => {
+//       if (!response.ok)
+//         throw new Error(`Country not found: ${response.status}`);
+//       return response.json();
+//     })
+//     .then(data => renderCountry(data[0]))
+//     .catch(error => console.error(error.message))
+//     .finally(() => (countriesContainer.style.opacity = '1'));
+// };
 
 // whereAmI(52.508, 13.381);
 // whereAmI(19.037, 72.873);
@@ -292,24 +292,89 @@ const wait = seconds =>
 // }, 1000);
 
 // Doing the same thing but with the promisified version
-wait(1)
-  .then(() => {
-    console.log('1 second passed');
-    return wait(1);
-  })
-  .then(() => {
-    console.log('2 seconds passed');
-    return wait(1);
-  })
-  .then(() => {
-    console.log('3 second passed');
-    return wait(1);
-  })
-  .then(() => {
-    console.log('4 seconds passed');
-  });
+// wait(1)
+//   .then(() => {
+//     console.log('1 second passed');
+//     return wait(1);
+//   })
+//   .then(() => {
+//     console.log('2 seconds passed');
+//     return wait(1);
+//   })
+//   .then(() => {
+//     console.log('3 second passed');
+//     return wait(1);
+//   })
+//   .then(() => {
+//     console.log('4 seconds passed');
+//   });
+//
+// Promise.resolve('Resolved value').then(x => console.log(x));
+// Promise.reject('Rejected value')
+//   .then(x => console.log(x))
+//   .catch(x => console.error(x));
 
-Promise.resolve('Resolved value').then(x => console.log(x));
-Promise.reject('Rejected value')
-  .then(x => console.log(x))
-  .catch(x => console.error(x));
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Promisifying the Geolocation API.
+
+console.log(`Getting position`);
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    ////////////////////////////////////////////////////////
+    // Method 1
+    // navigator.geolocation.getCurrentPosition(
+    //   position => {
+    //     resolve(position);
+    //   },
+    //   positionError => {
+    //     reject(positionError);
+    //   }
+    // );
+    /////////////////////////////////////////////////////////
+    // Method 2
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+getPosition().then(position => {
+  console.log(position);
+});
+
+const whereAmI = function () {
+  getPosition()
+    .then(position => {
+      // console.log(position.coords);
+
+      // Renaming variables
+      const { latitude: lat, longitude: lng } = position.coords;
+
+      return fetch(
+        `https://geocode.xyz/${lat},${lng}?geoit=json&auth=452597663231142705335x118628`
+      );
+    })
+    .then(response => {
+      if (!response.ok)
+        throw new Error(`Error has happened: ${response.status}`);
+
+      console.log(response);
+
+      return response.json();
+    })
+    .then(data => {
+      //   console.log(data)
+      console.log(`You are in ${data.city}, ${data.country}`);
+
+      return fetch(`https://restcountries.com/v3.1/name/${data.country}`);
+    })
+    .then(response => {
+      if (!response.ok)
+        throw new Error(`Country not found: ${response.status}`);
+      return response.json();
+    })
+    .then(data => renderCountry(data[0]))
+    .catch(error => console.error(error.message))
+    .finally(() => (countriesContainer.style.opacity = '1'));
+};
+
+btn2.addEventListener('click', whereAmI);
