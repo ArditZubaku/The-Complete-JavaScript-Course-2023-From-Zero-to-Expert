@@ -37,6 +37,7 @@ const renderCountry = function (data, className = '') {
   `;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = '1';
 };
 
 const getJSON = function (url, errMsg = 'Something went wrong') {
@@ -104,7 +105,7 @@ setTimeout(() => {
 
 // Modern way:
 const request = fetch(`https://restcountries.com/v3.1/name/kosovo`);
-console.log(request);
+// console.log(request);
 
 // const getCountryData = function (country) {
 //   fetch(`https://restcountries.com/v3.1/name/${country}`)
@@ -408,6 +409,7 @@ TEST DATA: Images in the img folder. Test the error handler by passing a wrong i
 GOOD LUCK
 */
 
+/*
 const imgContainer = document.querySelector('.images');
 
 const createImage = imgPath => {
@@ -449,3 +451,45 @@ createImage('img/img-1.jpg')
   .catch(err => {
     console.error(err);
   });
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Consuming promises with async/await.
+
+const getPosition = () => {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = async () => {
+  // Await keyword will stop the code execution at this point of the code until the promise is fulfilled
+  // The async keyword makes it possible to not block the main thread (the call stack), so it makes the code look like
+  // synchronous even though it is asynchronous
+  // Async/Await = syntax sugar over .then()
+
+  // fetch(`https://restcountries.com/v3.1/name/${country}`).then(res =>
+  //   console.log(res)
+  // );
+
+  // Geolocation
+  const position = await getPosition();
+  const { latitude: lat, longitude: lng } = position.coords;
+
+  // Reverse geocoding
+  const resGeo = await fetch(
+    `https://geocode.xyz/${lat},${lng}?geoit=json&auth=452597663231142705335x118628`
+  );
+  const geoData = await resGeo.json();
+  console.log(geoData);
+
+  const response = await fetch(
+    `https://restcountries.com/v3.1/name/${geoData.country}`
+  );
+
+  const data = await response.json();
+  console.log(data);
+  renderCountry(data[0]);
+};
+whereAmI();
+console.log('Executed FIRST');
