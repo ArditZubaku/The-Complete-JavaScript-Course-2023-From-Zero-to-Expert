@@ -496,6 +496,7 @@ whereAmI();
 console.log('Executed FIRST');
 */
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Error handling with try...catch.
 
@@ -543,3 +544,79 @@ const whereAmI = async () => {
   }
 };
 whereAmI();
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Returning values from async functions.
+
+const getPosition = () => {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = async () => {
+  try {
+    const position = await getPosition();
+    const { latitude: lat, longitude: lng } = position.coords;
+
+    // Reverse geocoding
+    const resGeo = await fetch(
+      `https://geocode.xyz/${lat},${lng}?geoit=json&auth=452597663231142705335x118628`
+    );
+    if (!resGeo.ok) {
+      throw new Error('Error fetching geolocation');
+    }
+    const geoData = await resGeo.json();
+
+    const response = await fetch(
+      `https://restcountries.com/v3.1/name/${geoData.country}`
+    );
+    if (!response.ok) {
+      throw new Error('Error fetching country');
+    }
+    const data = await response.json();
+    renderCountry(data[0]);
+    return `You are in ${geoData.city} ${geoData.country}`;
+  } catch (e) {
+    renderError(`Something went wrong! ${e.message}`);
+    // Reject the promise returned from async function
+    throw e;
+  }
+};
+// console.log('Start');
+// const city = whereAmI();
+// console.log(city + ' Proof that ASYNC function always returns a promise');
+// whereAmI()
+//   .then(res => {
+//     console.log(res);
+//   })
+//   .catch(e => console.error(e))
+//   .finally(() => {
+//     console.log('Finish');
+//   });
+
+/*
+In JavaScript, IIFEs (Immediately Invoked Function Expressions) are a way to create a self-executing function.
+They are commonly used to create a new scope and avoid polluting the global namespace.
+An IIFE is defined as a function expression that is immediately invoked after it is defined.
+It is typically wrapped in parentheses to indicate that it is a function expression and then followed
+by an additional pair of parentheses to invoke it immediately.
+Here's an example of an IIFE:
+
+(function() {
+  // code to be executed immediately
+})();
+
+*/
+
+console.log('Start');
+(async function () {
+  try {
+    const res = await whereAmI();
+    console.log(res);
+  } catch (e) {
+    throw e;
+  }
+  console.log('Finish');
+})();
