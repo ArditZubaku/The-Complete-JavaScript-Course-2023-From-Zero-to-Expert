@@ -27,3 +27,8 @@ export default (product, quantity) => {
   cart.push({ product, quantity });
   console.log(`${quantity} ${product} was added to the cart.`);
 };
+
+// Works only in Node.js
+exports.test = () => {
+  console.log('TEST');
+};

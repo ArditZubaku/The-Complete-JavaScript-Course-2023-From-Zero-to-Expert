@@ -3,6 +3,8 @@
 // // import { addToCart, qt, totalPrice as price } from './shoppingCart.js';
 // // Both types of imports in one line:
 import * as ShoppingCart from './shoppingCart.js';
+// import {test} from "./shoppingCart.js";
+const { test } = require('./shoppingCart');
 // import add, {
 //   addToCart,
 //   cart,
@@ -86,3 +88,5 @@ console.log(ShoppingCart2);
 // console.log(ShoppingCart2.shippingCost);
 ShoppingCart2.addToCart('apple', 4);
 ShoppingCart2.addToCart('pizza', 6);
+
+test();
