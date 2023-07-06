@@ -35,6 +35,7 @@ console.log('Test');
 // The con of it is the fact that it now blocks the whole module
 */
 
+/*
 // The top-level await of the exporting module blocks the whole module
 console.log(ShoppingCart.totalPrice);
 const getLastPost = async () => {
@@ -54,5 +55,34 @@ lastPost2
   .catch(err => {
     console.log(err);
   });
+*/
 
 console.log(ShoppingCart.qt);
+
+// Implementing the module pattern
+const ShoppingCart2 = (function () {
+  const cart = [];
+  const shippingCost = 10;
+  const totalPrice = 2350;
+  const totalQuantity = 123;
+  const addToCart = (product, quantity) => {
+    cart.push({ product, quantity });
+    console.log(`${quantity} ${product} was added to the cart.`);
+  };
+
+  const printOrderedStock = (product, quantity) => {
+    console.log(`${quantity} ${product} was ordered from supplier.`);
+  };
+
+  return {
+    addToCart,
+    cart,
+    totalQuantity,
+    totalPrice,
+  };
+})();
+
+console.log(ShoppingCart2);
+// console.log(ShoppingCart2.shippingCost);
+ShoppingCart2.addToCart('apple', 4);
+ShoppingCart2.addToCart('pizza', 6);
