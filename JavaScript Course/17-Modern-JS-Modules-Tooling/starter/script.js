@@ -1,92 +1,127 @@
-// // Importing module
-// // Creating a namespace to use for imports
-// // import { addToCart, qt, totalPrice as price } from './shoppingCart.js';
-// // Both types of imports in one line:
-import * as ShoppingCart from './shoppingCart.js';
-// import {test} from "./shoppingCart.js";
-const { test } = require('./shoppingCart');
-// import add, {
-//   addToCart,
-//   cart,
-//   qt,
-//   totalPrice as price,
-// } from './shoppingCart.js';
-//
-// console.log('Importing module');
-//
+///////////////////////////////////////
+// Exporting and Importing in ES6 Modules
+
+// Importing module
+// import { addToCart, totalPrice as price, tq } from './shoppingCart.js';
 // addToCart('bread', 5);
-// // console.log(totalPrice, totalQuantity)
-// console.log(price, qt);
-//
+// console.log(price, tq);
+
+console.log('Importing module');
+// console.log(shippingCost);
+
+// import * as ShoppingCart from './shoppingCart.js';
+// ShoppingCart.addToCart('bread', 5);
 // console.log(ShoppingCart.totalPrice);
-//
-// // We name it ourselves, and now it will import the default export
-// // import add from './shoppingCart.js'
-//
-// add('test1', 10);
-// add('test2', 20);
-// add('test3', 30);
-// console.log(cart);
 
-/*
-// Top-level await only works in modules
-const response = await fetch(`https://jsonplaceholder.typicode.com/posts`);
-const data = await response.json();
-console.log(data);
-console.log('Test');
-// The con of it is the fact that it now blocks the whole module
-*/
+// import add, { addToCart, totalPrice as price, tq } from './shoppingCart.js';
+// console.log(price);
 
+import add, * as ShoppingCart from './shoppingCart.js';
+import { cart } from './shoppingCart.js';
+///////////////////////////////////////
+// Introduction to NPM
+// import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+import cloneDeep from 'lodash-es';
+
+add('pizza', 2);
+add('bread', 5);
+add('apples', 4);
+
+console.log(cart);
 /*
-// The top-level await of the exporting module blocks the whole module
-console.log(ShoppingCart.totalPrice);
-const getLastPost = async () => {
-  const response = await fetch(`https://jsonplaceholder.typicode.com/posts`);
-  const data = await response.json();
+
+
+///////////////////////////////////////
+// Top-Level Await (ES2022)
+
+// console.log('Start fetching');
+// const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+// const data = await res.json();
+// console.log(data);
+// console.log('Something');
+
+const getLastPost = async function () {
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const data = await res.json();
+
   return { title: data.at(-1).title, text: data.at(-1).body };
 };
 
-const lastPost = await getLastPost();
+const lastPost = getLastPost();
 console.log(lastPost);
 
-const lastPost2 = getLastPost();
-lastPost2
-  .then(value => {
-    console.log(value);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-*/
+// Not very clean
+// lastPost.then(last => console.log(last));
 
-console.log(ShoppingCart.qt);
+const lastPost2 = await getLastPost();
+console.log(lastPost2);
 
-// Implementing the module pattern
+
+///////////////////////////////////////
+// The Module Pattern
+
 const ShoppingCart2 = (function () {
   const cart = [];
   const shippingCost = 10;
-  const totalPrice = 2350;
-  const totalQuantity = 123;
-  const addToCart = (product, quantity) => {
+  const totalPrice = 237;
+  const totalQuantity = 23;
+
+  const addToCart = function (product, quantity) {
     cart.push({ product, quantity });
-    console.log(`${quantity} ${product} was added to the cart.`);
+    console.log(
+      `${quantity} ${product} added to cart (sipping cost is ${shippingCost})`
+    );
   };
 
-  const printOrderedStock = (product, quantity) => {
-    console.log(`${quantity} ${product} was ordered from supplier.`);
+  const orderStock = function (product, quantity) {
+    console.log(`${quantity} ${product} ordered from supplier`);
   };
 
   return {
     addToCart,
     cart,
-    totalQuantity,
     totalPrice,
+    totalQuantity,
   };
 })();
 
-console.log(ShoppingCart2);
-// console.log(ShoppingCart2.shippingCost);
 ShoppingCart2.addToCart('apple', 4);
-ShoppingCart2.addToCart('pizza', 6);
+ShoppingCart2.addToCart('pizza', 2);
+console.log(ShoppingCart2);
+console.log(ShoppingCart2.shippingCost);
 
-test();
+
+///////////////////////////////////////
+// CommonJS Modules
+// Export
+export.addTocart = function (product, quantity) {
+  cart.push({ product, quantity });
+  console.log(
+    `${quantity} ${product} added to cart (sipping cost is ${shippingCost})`
+  );
+};
+
+// Import
+const { addTocart } = require('./shoppingCart.js');
+*/
+
+const state = {
+  cart: [
+    { product: 'bread', quantity: 5 },
+    { product: 'pizza', quantity: 5 },
+  ],
+  user: { loggedIn: true },
+};
+const stateClone = Object.assign({}, state);
+const stateDeepClone = cloneDeep(state);
+
+state.user.loggedIn = false;
+console.log(stateClone);
+
+console.log(stateDeepClone);
+
+console.log(ShoppingCart.totalPrice);
+
+if (module.hot) {
+  module.hot.accept();
+}
