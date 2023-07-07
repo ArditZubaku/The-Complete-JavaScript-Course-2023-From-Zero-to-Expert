@@ -22,6 +22,10 @@ import { cart } from './shoppingCart.js';
 // Introduction to NPM
 // import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
 import cloneDeep from 'lodash-es';
+import 'core-js/stable';
+// import 'core-js/stable/array/find'
+// Polyfilling async functions
+import 'regenerator-runtime/runtime';
 
 add('pizza', 2);
 add('bread', 5);
@@ -125,3 +129,21 @@ console.log(ShoppingCart.totalPrice);
 if (module.hot) {
   module.hot.accept();
 }
+
+class Person {
+  #greeting = 'Hey';
+
+  constructor(name, address) {
+    this.name = name;
+    this.address = address;
+    console.log(`${this.name}, ${this.address}`);
+  }
+}
+
+const jonas = new Person('Jonas', 'Portugal');
+console.log(jonas);
+
+console.log('Jonas' ?? null);
+
+console.log(cart.find(element => element.quantity >= 2));
+Promise.resolve('TEST').then(x => console.log(x));
